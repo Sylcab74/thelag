@@ -1,10 +1,10 @@
 FROM php:7.1-apache
 
-MAINTAINER Soufian, Louis, Sylvain, Pierre <saittirite@myges.fr>
+MAINTAINER Soraya, Thomas, Sylvain, Jeremy <dev@thelag.com>
 
 RUN apt-get update && apt-get install -q -y ssmtp mailutils libpng-dev libfreetype6-dev
 
-RUN echo "root:wesic.corporate@gmail.com:smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
+RUN echo "root:thelag.corporate@gmail.com:smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
 
 RUN echo "mailhub=smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
 
@@ -12,15 +12,15 @@ RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
 RUN echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
 
-RUN echo "AuthUser=wesic.corporate@gmail.com" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthUser=thelag.corporate@gmail.com" >> /etc/ssmtp/ssmtp.conf
 
-RUN echo "AuthPass=wesic2018" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthPass=thelag2018" >> /etc/ssmtp/ssmtp.conf
 
 
 RUN echo "sendmail_path=sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/
-RUN docker-php-ext-install pdo pdo_mysql gd mysqli
+RUN docker-php-ext-install  gd mysqli
 # yaml
 RUN buildRequirements="libyaml-dev" \
 	&& apt-get install -y ${buildRequirements} \

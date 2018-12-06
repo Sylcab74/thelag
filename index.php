@@ -19,8 +19,7 @@ abstract class Table
         $query = 'SELECT * FROM'. $this->table_name .' WHERE '. $this .' = '.$this->id_genre;
 
         $classVars = get_class_vars(get_called_class());
-
-
+        
         $result = myFetchAssoc($query);
 
         $this->nom = $result['nom'];
