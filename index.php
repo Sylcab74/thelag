@@ -1,35 +1,80 @@
 <?php
 
-require_once ('dbtools.php');
+require_once('dbtools.php');
+
+echo "<pre>";
+var_dump($_SERVER);
+echo "</pre>";
+
+
+
 
 abstract class Table
 {
     public function dump()
     {
-        //var_dump($this);
-        $classVars = get_class_vars(get_called_class());
-        var_dump($classVars);
+        echo "<pre>";
+        var_dump($this);
+        echo "</pre>";
     }
 
     public function hydrate()
     {
         if (empty($this->{$this->pk_field_name}))
-            die ('try to hydrate without PK');
+            die('try to hydrate without PK');
 
-        $query = 'SELECT * FROM'. $this->table_name .' WHERE '. $this .' = '.$this->id_genre;
+        // recuperer les donnees en BDD
+        $query = "SELECT * FROM ".$this->table_name." WHERE ".$this->pk_field_name." = ".$this->{$this->pk_field_name};
 
-        $classVars = get_class_vars(get_called_class());
-        
         $result = myFetchAssoc($query);
 
-        $this->nom = $result['nom'];
+        foreach ($this->fields_list as $field_name)
+            $this->{$field_name} = $result[$field_name];
+    }
+
+    public function save()
+    {
+        global $link;
+
+        if( !empty($this->{$this->pk_field_name}) )
+        {
+            echo "<h1>update</h1>";
+
+            $query = "UPDATE ".$this->table_name." SET ";
+
+            foreach ($this->fields_list as $field_name)
+            {
+                if(!empty($this->{$field_name}))
+                    $query .= " ".$field_name ." = '". $this->{$field_name}."' , ";
+            }
+            $query = rtrim($query, ', ');
+
+            $query .= " WHERE '".$this->pk_field_name."' = '".$this->{$this->pk_field_name}."'";
+
+            myQuery($query);
+
+        }else
+        {
+            $query = "INSERT INTO ".$this->table_name." (".implode(", ", $this->fields_list).") VALUES (";
+            foreach ($this->fields_list as $column)
+            {
+                $query .= "'".$this->{$column}."' ,";
+            }
+            $query = rtrim($query, ',');
+            $query .= ")";
+
+            myQuery($query);
+            $this->{$this->pk_field_name} = mysqli_insert_id(getLink());
+
+        }
     }
 }
 
 class Genre extends Table
 {
-    public $pk_field_name = 'id_genre';
-    public $table_name = 'genres';
+    protected $pk_field_name = 'id_genre';
+    protected $table_name = 'genres';
+    protected $fields_list = ['nom'];
 
     public $id_genre;
     public $nom;
@@ -37,6 +82,10 @@ class Genre extends Table
 
 class Distributeur extends Table
 {
+    protected $pk_field_name = 'id_distributeur';
+    protected $table_name = 'distributeurs';
+    protected $fields_list = ['telephone','nom','adresse','cpostal','ville','pays'];
+
     public $id_distributeur;
     public $nom;
     public $telephone;
@@ -44,37 +93,15 @@ class Distributeur extends Table
     public $cpostal;
     public $ville;
     public $pays;
-
-    public function dump()
-    {
-        var_dump($this);
-    }
-
-    public function hydrate()
-    {
-        if (empty($this->id_distributeur))
-            die ('try to hydrate without PK');
-
-        $query = 'SELECT nom FROM genres WHERE id_genre = '.$this->id_distributeur;
-
-        $result = myFetchAssoc($query);
-
-        $this->nom = $result['nom'];
-        $this->telephone = $result['telephone'];
-        $this->adresse = $result['adresse'];
-        $this->cpostal = $result['cpostal'];
-        $this->ville = $result['ville'];
-        $this->pays = $result['pays'];
-    }
 }
 
-$anime = new Genre();
-$anime->id_genre = 25;
+$distrib = new Distributeur;
+$distrib->id_distributeur = 55;
+$distrib->hydrate();
+$distrib->telephone = "un tel";
+$distrib->save();
 
-$distrib = new Distributeur();
-$distrib->id_distributeur = 12;
-
-echo '<pre>';
-//$anime->hydrate();
-$anime->dump();
-echo '<pre>';
+$test = new Distributeur;
+$test->telephone = "cest le telephone rose";
+$test->adresse = "chez moi";
+$test->save();

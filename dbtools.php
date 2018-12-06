@@ -36,3 +36,10 @@ function myFetchAllAssoc($query)
         $tab_res[] = $array;
     return $tab_res;
 }
+
+function getLink()
+{
+    global $link;
+
+    return $link;
+}
