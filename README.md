@@ -8,7 +8,7 @@
 
 ## Kill servers
 
-1. run `docker-compose down -d` à la racine du projet
+1. run `docker-compose down` à la racine du projet
 
 
 ### Liens :
