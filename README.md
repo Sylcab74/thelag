@@ -9,5 +9,12 @@
 
 ### Liens :
 
+**Linux / MacOS**
+
 [Lien de l'application](http://localhost:80)
-[Lien phpmyadmin](http://localhost:8081)
+[Lien phpmyadmin](http://localhost:8080)
+
+**Windows**
+
+[Lien de l'application](http://192.168.99.100:80)
+[Lien phpmyadmin](http://192.168.99.100:80)
