@@ -3,8 +3,6 @@
 ## Installation Première utilisation :
 
 1. Download docker / install docker
-2. `docker-compose build` à la racine du projet
-4. `composer install` à la racine du projet
 
 ## Lancement du projet :
 
@@ -18,5 +16,12 @@
 
 ## Liens :
 
+**Linux / MacOS**
+
 [Lien de l'application](http://localhost:80)
-[Lien phpmyadmin](http://localhost:8081)
+[Lien phpmyadmin](http://localhost:8080)
+
+**Windows**
+
+[Lien de l'application](http://192.168.99.100:80)
+[Lien phpmyadmin](http://192.168.99.100:80)
