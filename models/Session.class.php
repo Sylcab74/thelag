@@ -3,7 +3,7 @@
 class Session extends Table
 {
     protected $table_name = 'sessions';
-    protected $fields_list = ['id', 'start', 'end', 'participant_id', 'coach_id', 'games_id', 'availabalities_id'];
+    protected $fields_list = ['id', 'start', 'end', 'participant_id', 'coach_id', 'games_id', 'availabilities_id'];
 
     public $id;
     public $start;
@@ -11,5 +11,5 @@ class Session extends Table
     public $participant_id;
     public $coach_id;
     public $games_id;
-    public $availabalities_id;
+    public $availabilities_id;
 }

@@ -11,6 +11,7 @@
         <ul>
             <li><strong>nom : </strong>{{ $game->name }}</li>
             <li><strong>type : </strong>{{ $game->type }}</li>
+            <li><img src="{{ $game->picture }}" alt=""></li>
         </ul>
     </div>
 @endsection
