@@ -11,11 +11,11 @@ abstract class Table
 
     public function hydrate()
     {
-        if (empty($this->{$this->pk_field_name}))
+        if (empty($this->id))
             die('try to hydrate without PK');
 
         // recuperer les donnees en BDD
-        $query = "SELECT * FROM ".$this->table_name." WHERE ".$this->pk_field_name." = ".$this->{$this->pk_field_name};
+        $query = "SELECT * FROM ".$this->table_name." WHERE id = ".$this->id;
 
         $result = $this->myFetchAssoc($query);
 
@@ -27,7 +27,7 @@ abstract class Table
     {
         global $link;
 
-        if( !empty($this->{$this->pk_field_name}) )
+        if( !empty($this->id) )
         {
             echo "<h1>update</h1>";
 
@@ -40,7 +40,7 @@ abstract class Table
             }
             $query = rtrim($query, ', ');
 
-            $query .= " WHERE '".$this->pk_field_name."' = '".$this->{$this->pk_field_name}."'";
+            $query .= " WHERE id = '".$this->id."'";
 
             $this->myQuery($query);
 
@@ -55,7 +55,7 @@ abstract class Table
             $query .= ")";
 
             $this->myQuery($query);
-            $this->{$this->pk_field_name} = mysqli_insert_id(getLink());
+            $this->id = mysqli_insert_id(getLink());
 
         }
     }

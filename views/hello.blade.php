@@ -7,12 +7,10 @@
 
     <div class="box">
 
-        <h1>{{ $distributeur->nom }}</h1>
+        <h1>{{ $game->name }}</h1>
         <ul>
-            <li><strong>nom : </strong>{{ $distributeur->nom }}</li>
-            <li><strong>telephone : </strong>{{ $distributeur->telephone }}</li>
-            <li><strong>adresse : </strong> {{$distributeur->adresse}} {{ $distributeur->cpostale }} {{ $distributeur->ville }}</li>
-            <li><strong>pays : </strong>{{ $distributeur->pays }}</li>
+            <li><strong>nom : </strong>{{ $game->name }}</li>
+            <li><strong>type : </strong>{{ $game->type }}</li>
         </ul>
     </div>
 @endsection
