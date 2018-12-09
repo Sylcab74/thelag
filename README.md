@@ -1,17 +1,20 @@
 # **The Lag**
 
-## Installation :
+## Installation Première utilisation :
 
 1. Download docker / install docker
-2. run `docker-compose build` à la racine du projet
-3. run `docker-compose up -d` à la racine du projet
 
-## Kill servers
+## Lancement du projet :
 
-1. run `docker-compose down` à la racine du projet
+1. `docker-compose up -d` à la racine
+2. Faites vous plaisir
 
+## Arret du projet :
 
-### Liens :
+1. `docker-compose down`
+2. Prenez vous une petite pause
+
+## Liens :
 
 **Linux / MacOS**
 

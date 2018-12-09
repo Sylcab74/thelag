@@ -1,107 +1,65 @@
 <?php
+require 'vendor/autoload.php';
 
-require_once('dbtools.php');
+session_start();
+require "conf.inc.php";
 
-echo "<pre>";
-var_dump($_SERVER);
-echo "</pre>";
-
-
-
-
-abstract class Table
+/***
+ * @param $class
+ */
+function myAutoloader($class)
 {
-    public function dump()
+    $class = $class.'.class.php';
+    if(file_exists("core/".$class))
     {
-        echo "<pre>";
-        var_dump($this);
-        echo "</pre>";
+        include "core/".$class;
+    } else if (file_exists("models/".$class))
+    {
+        include("models/" . $class);
     }
+}
 
-    public function hydrate()
-    {
-        if (empty($this->{$this->pk_field_name}))
-            die('try to hydrate without PK');
+spl_autoload_register("myAutoloader");
 
-        // recuperer les donnees en BDD
-        $query = "SELECT * FROM ".$this->table_name." WHERE ".$this->pk_field_name." = ".$this->{$this->pk_field_name};
+$uri = substr(urldecode($_SERVER["REQUEST_URI"]), strlen(dirname($_SERVER["SCRIPT_NAME"])));
 
-        $result = myFetchAssoc($query);
+$uri = ltrim($uri, "/");
 
-        foreach ($this->fields_list as $field_name)
-            $this->{$field_name} = $result[$field_name];
-    }
+$uri = explode("?", $uri);
 
-    public function save()
-    {
-        global $link;
+$uriExploded = explode("/", $uri[0]);
 
-        if( !empty($this->{$this->pk_field_name}) )
-        {
-            echo "<h1>update</h1>";
+$c = (empty($uriExploded[0]))?"index":$uriExploded[0];
+$a = (empty($uriExploded[1]))?"index":$uriExploded[1];
 
-            $query = "UPDATE ".$this->table_name." SET ";
+$c = ucfirst(strtolower($c))."Controller";
+$a = strtolower($a)."Action";
 
-            foreach ($this->fields_list as $field_name)
-            {
-                if(!empty($this->{$field_name}))
-                    $query .= " ".$field_name ." = '". $this->{$field_name}."' , ";
-            }
-            $query = rtrim($query, ', ');
+unset($uriExploded[0]);
+unset($uriExploded[1]);
 
-            $query .= " WHERE '".$this->pk_field_name."' = '".$this->{$this->pk_field_name}."'";
+$uriExploded = array_values($uriExploded);
 
-            myQuery($query);
+$params = [
+    "POST"=>$_POST,
+    "GET"=>$_GET,
+    "URL"=>$uriExploded
+];
 
-        }else
-        {
-            $query = "INSERT INTO ".$this->table_name." (".implode(", ", $this->fields_list).") VALUES (";
-            foreach ($this->fields_list as $column)
-            {
-                $query .= "'".$this->{$column}."' ,";
-            }
-            $query = rtrim($query, ',');
-            $query .= ")";
+if(file_exists("controllers/".$c.".class.php")){
+    include "controllers/".$c.".class.php";
+    if( class_exists($c) ){
 
-            myQuery($query);
-            $this->{$this->pk_field_name} = mysqli_insert_id(getLink());
+        $objC = new $c();
 
+        if( method_exists($objC, $a) ){
+            $objC->$a($params);
+        }else{
+            die("L'action ".$a." n'existe pas");
         }
+    }else{
+        die("Le controller ".$c." n'existe pas");
     }
+}else{
+    die("Le fichier ".$c." n'existe pas");
 }
-
-class Genre extends Table
-{
-    protected $pk_field_name = 'id_genre';
-    protected $table_name = 'genres';
-    protected $fields_list = ['nom'];
-
-    public $id_genre;
-    public $nom;
-}
-
-class Distributeur extends Table
-{
-    protected $pk_field_name = 'id_distributeur';
-    protected $table_name = 'distributeurs';
-    protected $fields_list = ['telephone','nom','adresse','cpostal','ville','pays'];
-
-    public $id_distributeur;
-    public $nom;
-    public $telephone;
-    public $adresse;
-    public $cpostal;
-    public $ville;
-    public $pays;
-}
-
-$distrib = new Distributeur;
-$distrib->id_distributeur = 55;
-$distrib->hydrate();
-$distrib->telephone = "un tel";
-$distrib->save();
-
-$test = new Distributeur;
-$test->telephone = "cest le telephone rose";
-$test->adresse = "chez moi";
-$test->save();

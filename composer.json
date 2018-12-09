@@ -1,0 +1,12 @@
+{
+    "name": "tartiflette/thelag",
+    "require": {
+        "eftec/bladeone": "^3.17"
+    },
+    "authors": [
+        {
+            "name": "scabiati",
+            "email": "cabiati.sylvain@outlook.com"
+        }
+    ]
+}
