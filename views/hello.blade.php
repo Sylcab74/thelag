@@ -7,11 +7,10 @@
 
     <div class="box">
 
-        <h1>{{ $game->name }}</h1>
-        <ul>
-            <li><strong>nom : </strong>{{ $game->name }}</li>
-            <li><strong>type : </strong>{{ $game->type }}</li>
-            <li><img src="{{ $game->picture }}" alt=""></li>
-        </ul>
+        @forelse ($games as $game)
+            <li>{{ $game->name }} - {{$game->type}}</li>
+        @empty
+            <p>No users</p>
+        @endforelse
     </div>
 @endsection

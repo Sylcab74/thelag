@@ -23,6 +23,22 @@ abstract class Table
             $this->{$field_name} = $result[$field_name];
     }
 
+    public function findAll()
+    {
+        $response = [];
+        $query = "SELECT * FROM ".$this->table_name;
+        $results = $this->myFetchAllAssoc($query);
+        
+        foreach ($results as $result) {
+            $game = new Game();
+            foreach ($this->fields_list as $field_name)
+                $game->{$field_name} = $result[$field_name];
+            $response[] = $game;
+        }
+
+        return $response;
+    }
+
     public function save()
     {
         global $link;
