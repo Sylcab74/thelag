@@ -1,9 +1,11 @@
 <?php
 
 
-class IndexController{
+class IndexController
+{
 
-    public function indexAction($params){
+    public function indexAction($params)
+    {
 
         $distributeur = new Distributeur();
         $distributeur->id_distributeur = 5;
