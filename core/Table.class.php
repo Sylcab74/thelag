@@ -11,11 +11,11 @@ abstract class Table
 
     public function hydrate()
     {
-        if (empty($this->{$this->pk_field_name}))
+        if (empty($this->id))
             die('try to hydrate without PK');
 
         // recuperer les donnees en BDD
-        $query = "SELECT * FROM ".$this->table_name." WHERE ".$this->pk_field_name." = ".$this->{$this->pk_field_name};
+        $query = "SELECT * FROM ".$this->table_name." WHERE id = ".$this->id;
 
         $result = $this->myFetchAssoc($query);
 
@@ -27,7 +27,7 @@ abstract class Table
     {
         global $link;
 
-        if( !empty($this->{$this->pk_field_name}) )
+        if( !empty($this->id) )
         {
             echo "<h1>update</h1>";
 
@@ -40,7 +40,7 @@ abstract class Table
             }
             $query = rtrim($query, ', ');
 
-            $query .= " WHERE '".$this->pk_field_name."' = '".$this->{$this->pk_field_name}."'";
+            $query .= " WHERE id = '".$this->id."'";
 
             $this->myQuery($query);
 
@@ -55,9 +55,27 @@ abstract class Table
             $query .= ")";
 
             $this->myQuery($query);
-            $this->{$this->pk_field_name} = mysqli_insert_id(getLink());
+            $this->id = mysqli_insert_id(getLink());
 
         }
+    }
+
+    public static function findAll()
+    {
+        $response = [];
+        $class = get_called_class();
+        $query = "SELECT * FROM " . strtolower($class) . 's';
+        $results = self::myFetchAllAssoc($query);
+        $fields = (new $class())->fields_list;
+        
+        foreach ($results as $result) {
+            $obj = new $class();
+            foreach ($fields as $field_name)
+                $obj->{$field_name} = $result[$field_name];
+            $response[] = $obj;
+        }
+
+        return $response;
     }
 
     function myQuery($query)
@@ -65,7 +83,7 @@ abstract class Table
         global $link;
 
         if (empty($link))
-            $link = mysqli_connect('db', 'root', 'root', 'cinema') or die (mysqli_connect_error());
+            $link = mysqli_connect('db', 'root', 'root', 'lag') or die (mysqli_connect_error());
         $result = mysqli_query($link, $query) or die (mysqli_error($link));
         return $result;
     }
@@ -86,7 +104,7 @@ abstract class Table
     {
         global $link;
 
-        $result = $this->myQuery($query) or die (mysqli_error($link));
+        $result = self::myQuery($query) or die (mysqli_error($link));
         if (!$result)
             return false;
 

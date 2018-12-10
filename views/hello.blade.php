@@ -7,12 +7,10 @@
 
     <div class="box">
 
-        <h1>{{ $distributeur->nom }}</h1>
-        <ul>
-            <li><strong>nom : </strong>{{ $distributeur->nom }}</li>
-            <li><strong>telephone : </strong>{{ $distributeur->telephone }}</li>
-            <li><strong>adresse : </strong> {{$distributeur->adresse}} {{ $distributeur->cpostale }} {{ $distributeur->ville }}</li>
-            <li><strong>pays : </strong>{{ $distributeur->pays }}</li>
-        </ul>
+        @forelse ($games as $game)
+            <li>{{ $game->name }} - {{$game->type}}</li>
+        @empty
+            <p>No users</p>
+        @endforelse
     </div>
 @endsection
