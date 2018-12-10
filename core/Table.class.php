@@ -55,7 +55,7 @@ abstract class Table
             $query .= ")";
 
             $this->myQuery($query);
-            $this->id = mysqli_insert_id(getLink());
+            $this->id = mysqli_insert_id($link);
 
         }
     }
