@@ -23,22 +23,6 @@ abstract class Table
             $this->{$field_name} = $result[$field_name];
     }
 
-    public function findAll()
-    {
-        $response = [];
-        $query = "SELECT * FROM ".$this->table_name;
-        $results = $this->myFetchAllAssoc($query);
-        
-        foreach ($results as $result) {
-            $game = new Game();
-            foreach ($this->fields_list as $field_name)
-                $game->{$field_name} = $result[$field_name];
-            $response[] = $game;
-        }
-
-        return $response;
-    }
-
     public function save()
     {
         global $link;
@@ -76,6 +60,24 @@ abstract class Table
         }
     }
 
+    public static function findAll()
+    {
+        $response = [];
+        $class = get_called_class();
+        $query = "SELECT * FROM " . strtolower($class) . 's';
+        $results = self::myFetchAllAssoc($query);
+        $fields = (new $class())->fields_list;
+        
+        foreach ($results as $result) {
+            $obj = new $class();
+            foreach ($fields as $field_name)
+                $obj->{$field_name} = $result[$field_name];
+            $response[] = $obj;
+        }
+
+        return $response;
+    }
+
     function myQuery($query)
     {
         global $link;
@@ -102,7 +104,7 @@ abstract class Table
     {
         global $link;
 
-        $result = $this->myQuery($query) or die (mysqli_error($link));
+        $result = self::myQuery($query) or die (mysqli_error($link));
         if (!$result)
             return false;
 

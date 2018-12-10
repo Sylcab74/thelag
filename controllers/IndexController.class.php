@@ -6,9 +6,7 @@ class IndexController
 
     public function indexAction()
     {
-
-        $game = new Game();
-        $games = $game->findAll();
+        $games = Game::findAll();
 
         $views = DIRNAME . '/views'; // it uses the folder /views to read the templates
         $cache = DIRNAME . '/cache'; // it uses the folder /cache to compile the result.
