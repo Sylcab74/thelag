@@ -7,8 +7,8 @@
 
     <div class="box">
         <ul>
-        @forelse ($games as $game)
-            <li>{{ $game->name }} -{{$game->type}}</li>
+        @forelse ($users as $user)
+            <li>{{ $user->login }} - {{$user->firstname}} - {{$user->lastname}} - {{$user->email}}</li>
         @empty
             <p>No users</p>
         @endforelse
