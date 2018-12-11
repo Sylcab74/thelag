@@ -10,12 +10,15 @@ require "conf.inc.php";
 function myAutoloader($class)
 {
     $class = $class.'.class.php';
+    $class = str_replace('Service\\', '', $class);
     if(file_exists("core/".$class))
     {
         include "core/".$class;
     } else if (file_exists("models/".$class))
     {
         include("models/" . $class);
+    } else if (file_exists("services/".$class)) {
+        include("services/" . $class);
     }
 }
 
@@ -48,8 +51,8 @@ $params = [
 
 if(file_exists("controllers/".$c.".class.php")){
     include "controllers/".$c.".class.php";
+    $c = "Controller\\" . $c;
     if( class_exists($c) ){
-
         $objC = new $c();
 
         if( method_exists($objC, $a) ){
