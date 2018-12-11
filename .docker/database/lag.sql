@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `lag`.`users` (
   `email` VARCHAR(255) NOT NULL,
   `firstname` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
-  `picture` VARCHAR(125) NULL,
+  `picture` VARCHAR(250) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `lag`.`games` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `type` VARCHAR(45) NOT NULL,
-  `picture` VARCHAR(125) NOT NULL,
+  `picture` VARCHAR(250) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

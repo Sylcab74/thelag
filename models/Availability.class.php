@@ -2,7 +2,7 @@
 
 class Availability extends Table
 {
-    protected $table_name = 'availability';
+    protected $table_name = 'availabilities';
     protected $fields_list = ['start','end','users_id'];
 
     public $id;
