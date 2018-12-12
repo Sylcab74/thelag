@@ -1,8 +1,9 @@
 <?php
 
-namespace Controller;
+namespace Lag\Controller;
 
-use \Service\Calendar;
+use \Lag\Service\Calendar;
+use \Lag\Model\User;
 
 class CoachController
 {
@@ -17,13 +18,20 @@ class CoachController
         echo $blade->run("coach",array("users"=>$users));
     }
 
-    public function calendarAction()
+    public function showAction($params)
     {   
-        $calendar = (new Calendar())->generateCalendar();
+        $user = new User;
+        $user->id = $params['URL'][0]; 
+        $user->hydrate();
+        var_dump($user);
+
+        $weekStart = (new Calendar())->getWeekStart();
         $views = DIRNAME . '/views';
         $cache = DIRNAME . '/cache';
         $blade=new \eftec\bladeone\BladeOne("./views/", "./cache/", \eftec\bladeone\BladeOne::MODE_AUTO);
-        echo $blade->run("calendar");
+        echo $blade->run("calendar", array(
+            'weekStart' => $weekStart
+        ));
     }
 
 }

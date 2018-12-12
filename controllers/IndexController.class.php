@@ -1,11 +1,14 @@
 <?php
 
+namespace Lag\Controller;
+
+use \Lag\Model\Game;
 
 class IndexController
 {
 
     public function indexAction()
-    {        
+    {   
         $games = Game::findAll();
 
         $views = DIRNAME . '/views'; // it uses the folder /views to read the templates

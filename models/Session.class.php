@@ -1,5 +1,9 @@
 <?php
 
+namespace Lag\Model;
+
+use \Lag\Core\Table;
+
 class Session extends Table
 {
     protected $table_name = 'sessions';

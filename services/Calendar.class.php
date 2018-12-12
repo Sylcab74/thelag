@@ -1,14 +1,13 @@
 <?php
 
-namespace Service;
+namespace Lag\Service;
 
 class Calendar
 {
-    public function generateCalendar()
+    public function getWeekStart()
     {
         $day = date('w');
-        $weekStart = date('m-d-Y', strtotime('-'.($day - 1).' days'));
-        $weekEnd = date('m-d-Y', strtotime('+'.(8-$day).' days'));
+        return date('d', strtotime('-'.($day - 1).' days'));
     }
     
     public function changeWeek()

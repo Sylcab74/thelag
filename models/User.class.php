@@ -1,5 +1,9 @@
 <?php
 
+namespace Lag\Model;
+
+use \Lag\Core\Table;
+
 class User extends Table
 {
     protected $table_name = 'users';

@@ -1,5 +1,9 @@
 <?php
 
+namespace Lag\Core;
+
+use \Lag\Model\Game;
+
 abstract class Table
 {
     public function dump()
@@ -60,14 +64,18 @@ abstract class Table
         }
     }
 
+    /**
+     * @TODO // Remove the namespace use for call the models
+     */
     public static function findAll()
     {
         $response = [];
-        $class = get_called_class();
+        $class = str_replace('Lag\\Model\\', '', get_called_class());
         $query = "SELECT * FROM " . strtolower($class) . 's';
         $results = self::myFetchAllAssoc($query);
+        $class = 'Lag\\Model\\' . $class;
         $fields = (new $class())->fields_list;
-        
+
         foreach ($results as $result) {
             $obj = new $class();
             foreach ($fields as $field_name)

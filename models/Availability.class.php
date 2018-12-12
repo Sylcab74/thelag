@@ -1,5 +1,9 @@
 <?php
 
+namespace Controller;
+
+use \Core\Table;
+
 class Availability extends Table
 {
     protected $table_name = 'availabilities';
