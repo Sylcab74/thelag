@@ -48,3 +48,12 @@ font-family: 'roboto';
 src: url('../fonts/Roboto-Regular.ttf');
 font-weight: 900;
 }
+.game{
+    width: 150px;
+    margin: 20px;
+}
+.li_game{
+    display: inline-table;
+    list-style-type: none;
+    width: 150px;
+}
