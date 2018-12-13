@@ -27,13 +27,13 @@ class Calendar
                 $calendar[$weekStart][$i] = false; 
         }
         
-        foreach ($user->availability as $availab) {
-            $userMonth = date('m', strtotime($availab->start));
-            $userDay = date('d', strtotime($availab->start));
+        foreach ($user->availability as $available) {
+            $userMonth = date('m', strtotime($available->start));
+            $userDay = date('d', strtotime($available->start));
 
             if ($userMonth === $month && isset($calendar[$userDay])) {
-                $hour = date('G', strtotime($availab->start));
-                $end = date('G', strtotime($availab->end));
+                $hour = date('G', strtotime($available->start));
+                $end = date('G', strtotime($available->end));
  
                 for ($i = $hour; $i < $end; $i++)
                     $calendar[$userDay][$i] = true;
