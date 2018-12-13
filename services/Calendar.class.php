@@ -32,10 +32,10 @@ class Calendar
             $userDay = date('d', strtotime($availab->start));
 
             if ($userMonth === $month && isset($calendar[$userDay])) {
-                $hour = date('H', strtotime($availab->start));
-                $end = date('H', strtotime($availab->end));
-                
-                for ($i = $hour; $i <= $end; $i++)
+                $hour = date('G', strtotime($availab->start));
+                $end = date('G', strtotime($availab->end));
+ 
+                for ($i = $hour; $i < $end; $i++)
                     $calendar[$userDay][$i] = true;
             }
         }
