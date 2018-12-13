@@ -9,9 +9,9 @@
 
 .img_game{
     height: 66%;
+    width: 100%;
     margin:0 auto;
-    position: relative;
-    right:45%;
+    object-fit: cover;
 }
 
 .li_game{
@@ -47,13 +47,4 @@
 font-family: 'roboto';
 src: url('../fonts/Roboto-Regular.ttf');
 font-weight: 900;
-}
-.game{
-    width: 150px;
-    margin: 20px;
-}
-.li_game{
-    display: inline-table;
-    list-style-type: none;
-    width: 150px;
 }
