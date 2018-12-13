@@ -6,7 +6,7 @@
 
 ## Lancement du projet :
 
-1. `docker-compose up -d` à la racine
+1. `docker-compose build` à la racine
 2. Faites vous plaisir
 
 ## Arret du projet :
