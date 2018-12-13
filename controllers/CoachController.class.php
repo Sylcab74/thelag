@@ -21,16 +21,21 @@ class CoachController
     public function showAction($params)
     {   
         $user = new User;
-        $user->id = $params['URL'][0]; 
+        $user->id = $params['URL'][0];
         $user->hydrate();
-        var_dump($user);
-
-        $weekStart = (new Calendar())->getWeekStart();
+        
+        $objCalendar = new Calendar;
+        $calendar = $objCalendar->createCalendar($user);
+        $days = $objCalendar->days;
+        $start = key($calendar);
+        
         $views = DIRNAME . '/views';
         $cache = DIRNAME . '/cache';
         $blade=new \eftec\bladeone\BladeOne("./views/", "./cache/", \eftec\bladeone\BladeOne::MODE_AUTO);
         echo $blade->run("calendar", array(
-            'weekStart' => $weekStart
+            "calendar" => $calendar,
+            "user" => $user,
+            "start" => key($calendar)
         ));
     }
 

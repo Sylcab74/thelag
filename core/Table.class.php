@@ -3,6 +3,7 @@
 namespace Lag\Core;
 
 use \Lag\Model\Game;
+use \Lag\Model\Availabality;
 
 abstract class Table
 {
@@ -13,6 +14,24 @@ abstract class Table
         echo "</pre>";
     }
 
+    public function findBy($column, $value)
+    {
+        $response = [];
+        $query = "SELECT * FROM ".$this->table_name." WHERE " . $column . " = ".$value;
+        $results = $this->myFetchAllAssoc($query);
+        $class = get_called_class();
+
+        foreach ($results as $result) {  
+            $obj = new $class;
+            foreach ($obj->fields_list as $field_name){
+                $obj->{$field_name} = $result[$field_name];
+            }
+            $response[] = $obj;
+        }
+
+        return $response;
+    }
+
     public function hydrate()
     {
         if (empty($this->id))
@@ -20,11 +39,19 @@ abstract class Table
 
         // recuperer les donnees en BDD
         $query = "SELECT * FROM ".$this->table_name." WHERE id = ".$this->id;
-
         $result = $this->myFetchAssoc($query);
 
-        foreach ($this->fields_list as $field_name)
-            $this->{$field_name} = $result[$field_name];
+        foreach ($this->fields_list as $field_name){
+           
+            if (is_array($this->{$field_name})) {
+                $objRelation = 'Lag\\Model\\'.ucfirst($field_name);
+                $obj = new $objRelation;
+                $column = strtolower($this->table_name).'_id';
+                $this->{$field_name} = $obj->findBy($column ,$this->id);
+            } else {
+                $this->{$field_name} = $result[$field_name];
+            }
+        }
     }
 
     public function save()
@@ -74,12 +101,12 @@ abstract class Table
         $query = "SELECT * FROM " . strtolower($class) . 's';
         $results = self::myFetchAllAssoc($query);
         $class = 'Lag\\Model\\' . $class;
-        $fields = (new $class())->fields_list;
 
         foreach ($results as $result) {
             $obj = new $class();
-            foreach ($fields as $field_name)
+            foreach ($obj->fields_list as $field_name){
                 $obj->{$field_name} = $result[$field_name];
+            }
             $response[] = $obj;
         }
 

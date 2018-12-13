@@ -1,8 +1,8 @@
 <?php
 
-namespace Controller;
+namespace Lag\Model;
 
-use \Core\Table;
+use \Lag\Core\Table;
 
 class Availability extends Table
 {
