@@ -8,7 +8,8 @@
     <div class="box">
         <ul>
         @forelse ($games as $game)
-            <li class="li_game"><img class='game' src={{ $game->picture}} /> <br> {{ $game->name }} - {{$game->type}} </li>
+            @component('components.gamecard',['game'=>$game])
+            @endcomponent
         @empty
             <p>No game disponible</p>
         @endforelse

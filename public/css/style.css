@@ -6,12 +6,45 @@
     margin-left: 12.5%;
     text-align: center;
 }
-.game{
-    width: 150px;
-    margin: 20px;
+
+.img_game{
+    height: 66%;
+    width: 100%;
+    margin:0 auto;
+    object-fit: cover;
 }
+
 .li_game{
-    display: inline-table;
+    padding:0;
+    display: inline-block; 
     list-style-type: none;
-    width: 150px;
+    width: 160px;
+    background:#204e4b;
+    height:250px;
+    border-radius: 10px;
+    overflow:hidden;
+    margin:20px;
+}
+
+.li_game h2{
+    font-size: 14px;
+    text-align: center;
+    margin-left: 5px;
+    color:white;
+    font-family:'roboto';
+
+}
+.li_game p{
+    font-size: 14px;
+    text-align: left;
+    color:white;
+    font-family: Arial;
+    margin-left: 5px;
+    text-align: center;
+}
+
+@font-face {
+font-family: 'roboto';
+src: url('../fonts/Roboto-Regular.ttf');
+font-weight: 900;
 }

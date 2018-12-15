@@ -3,6 +3,7 @@
 namespace Lag\Controller;
 
 use \Lag\Model\Game;
+use \Lag\Core\Views;
 
 class IndexController
 {
