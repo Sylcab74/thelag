@@ -13,12 +13,14 @@ class Calendar
     public $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
     
     
-    public function createCalendar(User $user)
+    public function createCalendar(User $user, $day = null, $month = null, $year = null)
     {
         $calendar = [];
-        $day = date('w');
-        $month = date('m');
-        $weekStart = intval(date('d', strtotime('-'.($day - 1).' days')));
+        $date = $day === null ? 'now' : $day . '-' . $month . '-' . $year;
+        $date = strtotime($date);
+        $numericDay = date('w', $date);
+        $month = date('m', $date);
+        $weekStart = $day === null ? intval(date('d', strtotime('-'.($numericDay - 1).' days'))) : intval(date('d', $date));
         $limit = $weekStart + 7;
 
         for ($weekStart; $weekStart < $limit; $weekStart++){
@@ -42,9 +44,5 @@ class Calendar
 
         return $calendar;
     }
-    
-    public function changeWeek()
-    {
-        //
-    }
+
 }

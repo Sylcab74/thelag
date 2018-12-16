@@ -28,6 +28,8 @@ class CoachController
         $calendar = $objCalendar->createCalendar($user);
         $days = $objCalendar->days;
         $start = key($calendar);
+        $month = date('m');
+        $year = date('Y');
         
         $views = DIRNAME . '/views';
         $cache = DIRNAME . '/cache';
@@ -36,8 +38,33 @@ class CoachController
             "calendar" => $calendar,
             "user" => $user,
             "days" => $days,
+            'year' => $year,
+            "month" => $month,
             "start" => key($calendar)
         ));
+    }
+
+    public function changeWeekAction($params)
+    {
+        $data = [];
+
+        $objCalendar = new Calendar();
+        $month = $params['POST']['month'];
+        $year = date('Y');
+        $day = $params['POST']['action'] == 'next' ? $params['POST']['last'] + 1 : $params['POST']['first'] - 7;
+
+        $user = new User;
+        $user->id = $params['POST']['user'];
+        $user->hydrate();
+
+        $calendar = $objCalendar->createCalendar($user, $day, $month, $year);
+ 
+        $data['status'] = 'success';
+        $data['response']['calendar'] = $calendar;
+        $data['response']['start'] = key($calendar);
+        $data['response']['month'] = $month;
+        
+        echo json_encode($data);
     }
 
 }

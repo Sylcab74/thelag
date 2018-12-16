@@ -2,8 +2,6 @@
 
 namespace Lag\Core;
 
-use \Lag\Model\Game;
-use \Lag\Model\Availabality;
 
 abstract class Table
 {
@@ -37,7 +35,6 @@ abstract class Table
         if (empty($this->id))
             die('try to hydrate without PK');
 
-        // recuperer les donnees en BDD
         $query = "SELECT * FROM ".$this->table_name." WHERE id = ".$this->id;
         $result = $this->myFetchAssoc($query);
 
@@ -60,8 +57,6 @@ abstract class Table
 
         if( !empty($this->id) )
         {
-            echo "<h1>update</h1>";
-
             $query = "UPDATE ".$this->table_name." SET ";
 
             foreach ($this->fields_list as $field_name)
@@ -97,10 +92,9 @@ abstract class Table
     public static function findAll()
     {
         $response = [];
-        $class = str_replace('Lag\\Model\\', '', get_called_class());
-        $query = "SELECT * FROM " . strtolower($class) . 's';
+        $query = "SELECT * FROM " . static::$table_name . 's';
         $results = self::myFetchAllAssoc($query);
-        $class = 'Lag\\Model\\' . $class;
+        $class = 'Lag\\Model\\' . get_called_class();
 
         foreach ($results as $result) {
             $obj = new $class();
