@@ -24,8 +24,10 @@ class Calendar
         $weekStart = $day === null ? intval(date('d', strtotime('-'.($numericDay - 1).' days'))) : intval(date('d', $date));
 
         for ($u = 0; $u < 7; $u++){
-            if ($weekStart > $lastDay)
+            if ($weekStart > $lastDay){
                 $weekStart = 1;
+                $month++;
+            }
 
             $calendar[$weekStart.'-'.$month] = [];
             for ($i = 0; $i < 23; $i++ )
@@ -61,11 +63,12 @@ class Calendar
                 $month = $month + 1 == 13 ? 1 : $month + 1;
             }
         } else {
-            $day = $first - 7;
-            if ($day < 0) {
-                $lastDay = (new \DateTime('1-'.$month -1 . '-2018'))->format('t');
-                $day = $lastDay - $day;
+            if ($first - 7 < 0) {
                 $month = $month - 1 < 0 ? 12 : $month - 1;
+                $lastDay = (new \DateTime('1-'. $month . '-2018'))->format('t');
+                $day = $lastDay - (7 - $first);
+            } else {
+                $day = $first - 7;
             }
         }
         
