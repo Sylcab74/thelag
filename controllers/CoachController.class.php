@@ -27,10 +27,7 @@ class CoachController
         $objCalendar = new Calendar;
         $calendar = $objCalendar->createCalendar($user);
         $days = $objCalendar->days;
-        $start = key($calendar);
-        $month = date('m');
-        $year = date('Y');
-        
+
         $views = DIRNAME . '/views';
         $cache = DIRNAME . '/cache';
         $blade=new \eftec\bladeone\BladeOne("./views/", "./cache/", \eftec\bladeone\BladeOne::MODE_AUTO);
@@ -38,8 +35,8 @@ class CoachController
             "calendar" => $calendar,
             "user" => $user,
             "days" => $days,
-            'year' => $year,
-            "month" => $month,
+            'year' => date('Y'),
+            "month" => date('m'),
             "start" => key($calendar)
         ));
     }
@@ -47,17 +44,17 @@ class CoachController
     public function changeWeekAction($params)
     {
         $data = [];
-
-        $objCalendar = new Calendar();
-        $month = $params['POST']['month'];
+        
+        $post = $params['POST'];
         $year = date('Y');
-        $day = $params['POST']['action'] == 'next' ? $params['POST']['last'] + 1 : $params['POST']['first'] - 7;
+        $objCalendar = new Calendar();
 
         $user = new User;
-        $user->id = $params['POST']['user'];
+        $user->id = $post['user'];
         $user->hydrate();
 
-        $calendar = $objCalendar->createCalendar($user, $day, $month, $year);
+        $dayMonth = $objCalendar->getDayAndMonth($post['first'], $post['last'], $post['month'], $post['action']);
+        $calendar = $objCalendar->createCalendar($user, current($dayMonth), key($dayMonth), $year);
  
         $data['status'] = 'success';
         $data['response']['calendar'] = $calendar;

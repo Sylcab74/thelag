@@ -62,7 +62,8 @@
                                             ${numberDays.map((elem, index) => {                                            
                                                 if (index == 0) {
                                                     return `<td>${hour}</td>`;
-                                                } else if (calendar[start[index]] !== undefined && calendar[start[index]][indexHours]) {
+                                                } else if (calendar[start[index-1]] !== undefined && calendar[start[index-1]][indexHours]) {
+                                                    console.log(start[index]);
                                                     return `<td style="background-color: green"></td>`;
                                                 } else {
                                                     return `<td></td>`;
