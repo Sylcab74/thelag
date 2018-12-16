@@ -47,24 +47,28 @@
                         const data = await response.json();
                         const { calendar, start : newFirst } = data.response;
                         const start = numberDays.map(day => parseInt(day) + parseInt(Object.keys(calendar)[0]));
+                        start.pop();
 
-                        numberDays.pop()
                         containerTable.innerHTML = "";
                         containerTable.innerHTML = `
                         <table data-first="${newFirst}" data-month="12">
                             <tbody>
                                 <tr>
                                     <th></th>
-                                    ${Object.keys(calendar).map((elem, index) => `<th>${days[index]} ${elem}</th>`)}
+                                    ${Object.keys(calendar).map((elem, index) => {
+                                        let date = elem.split('-');
+                                        return `<th>${days[index]} ${date[0]}</th>`;
+                                    })}
                                 </tr>
                                 ${hours.map((hour, indexHours) => {
                                     return (`<tr>
                                             ${numberDays.map((elem, index) => {                                            
                                                 if (index == 0) {
                                                     return `<td>${hour}</td>`;
-                                                } else if (calendar[start[index-1]] !== undefined && calendar[start[index-1]][indexHours]) {
-                                                    console.log(start[index]);
+                                                } else if (calendar[start[index-1]+'-12'] !== undefined && calendar[start[index-1]+'-12'][indexHours]) {
                                                     return `<td style="background-color: green"></td>`;
+                                                } else if (index === numberDays.length){
+                                                    return;
                                                 } else {
                                                     return `<td></td>`;
                                                 }

@@ -18,27 +18,32 @@ class Calendar
         $calendar = [];
         $date = $day === null ? 'now' : $day . '-' . $month . '-' . $year;
         $date = strtotime($date);
-        $numericDay = date('w', $date) == 0 ? 7 : date('w', $date);
         $month = date('m', $date);
+        $lastDay = (new \DateTime('1-'.$month . '-2018'))->format('t');
+        $numericDay = date('w', $date) == 0 ? 7 : date('w', $date);
         $weekStart = $day === null ? intval(date('d', strtotime('-'.($numericDay - 1).' days'))) : intval(date('d', $date));
-        $limit = $weekStart + 7;
 
-        for ($weekStart; $weekStart < $limit; $weekStart++){
-            $calendar[$weekStart] = [];
+        for ($u = 0; $u < 7; $u++){
+            if ($weekStart > $lastDay)
+                $weekStart = 1;
+
+            $calendar[$weekStart.'-'.$month] = [];
             for ($i = 0; $i < 23; $i++ )
-                $calendar[$weekStart][$i] = false;
+                $calendar[$weekStart.'-'.$month][$i] = false;
+
+            $weekStart++;
         }
         
         foreach ($user->availability as $available) {
             $userMonth = date('m', strtotime($available->start));
             $userDay = date('d', strtotime($available->start));
 
-            if ($userMonth === $month && isset($calendar[$userDay])) {
+            if ($userMonth === $month && isset($calendar[$userDay.'-'.$month])) {
                 $hour = date('G', strtotime($available->start));
                 $end = date('G', strtotime($available->end));
  
                 for ($i = $hour; $i < $end; $i++)
-                    $calendar[$userDay][$i] = true;
+                    $calendar[$userDay.'-'.$month][$i] = true;
             }
         }
 
@@ -53,17 +58,17 @@ class Calendar
             $day = $last + 1;
             if ($day > $lastDay){
                 $day = $day - $lastDay;
-                $month++;
+                $month = $month + 1 == 13 ? 1 : $month + 1;
             }
         } else {
             $day = $first - 7;
             if ($day < 0) {
                 $lastDay = (new \DateTime('1-'.$month -1 . '-2018'))->format('t');
                 $day = $lastDay - $day;
-                $month--;
+                $month = $month - 1 < 0 ? 12 : $month - 1;
             }
         }
-
+        
         return [$month => $day];
     }
 

@@ -59,7 +59,7 @@ class CoachController
         $data['status'] = 'success';
         $data['response']['calendar'] = $calendar;
         $data['response']['start'] = key($calendar);
-        $data['response']['month'] = $month;
+        $data['response']['month'] = key($dayMonth);
         
         echo json_encode($data);
     }

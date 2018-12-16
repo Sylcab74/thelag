@@ -6,7 +6,7 @@
             <tr>
                 <th></th>
                 @foreach ($calendar as $key => $day)
-                    <th>{{ $days[$loop->index-1] }} {{ $key }}</th>
+                    <th>{{ $days[$loop->index-1] }} {{ reset(explode('-',$key)) }}</th>
                 @endforeach
             </tr>
 
@@ -16,7 +16,7 @@
                         
                         @if ($u == $start-1)
                             <td>{{$i}}</td>
-                        @elseif ($calendar[$u][$i])
+                        @elseif ($calendar[$u.'-'.$month][$i])
                             <td style="background: green"></td>
                         @else
                             <td></td>                        
