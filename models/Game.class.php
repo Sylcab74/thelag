@@ -7,10 +7,11 @@ use \Lag\Core\Table;
 class Game extends Table
 {
     protected $table_name = 'games';
-    protected $fields_list = ['name', 'type', 'picture'];
+    protected $fields_list = ['id','name', 'type', 'picture', 'description'];
 
     public $id;
     public $name;
     public $type;
     public $picture;
+    public $description;
 }

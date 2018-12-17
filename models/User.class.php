@@ -7,7 +7,7 @@ use \Lag\Core\Table;
 class User extends Table
 {
     protected $table_name = 'users';
-    protected $fields_list = ['login', 'password', 'email', 'firstname', 'lastname', 'picture', 'availability'];
+    protected $fields_list = ['id','login', 'password', 'email', 'firstname', 'lastname', 'picture', 'availability'];
 
     public $id;
     public $login;

@@ -1,8 +1,8 @@
-<!-- Stored in resources/views/layouts/app.blade.php -->
-
+<!DOCTYPE html/>
 <html>
 <head>
-    <title>@yield('title')</title>
+    <title>The lag | @yield('title')</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 <body>
