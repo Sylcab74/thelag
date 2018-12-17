@@ -17,6 +17,7 @@ class User extends Table
     public $lastname;
     public $picture;
     public $availability = [];
+    public $games;
 
     public function addGame($gameId)
     {
@@ -30,5 +31,20 @@ class User extends Table
         $query = "DELETE FROM link_games_users WHERE users_id = ". $this->id ." AND games_id = " . $gameId;
         
         return $this->myQuery($query);
+    }
+
+    public function games()
+    {
+        $this->games = [];
+
+        $query = "SELECT games_id FROM link_games_users WHERE users_id = ". $this->id;
+        $results = $this->myFetchAllAssoc($query);
+
+        foreach ($results as $result) {
+            $game = new Game;
+            $game->id = $result['games_id'];
+            $game->hydrate();
+            $this->games[] = $game;
+        }
     }
 }

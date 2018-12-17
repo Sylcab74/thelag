@@ -5,24 +5,30 @@
 @section('content')
     <div id="alert" style="display: none"></div>
     
-    <h1>{{ $game->name }}</h1>
-    <p>{{ $description }}</p>
-    <button id="add" data-id={{$game->id}}>Ajouter à ses jeux</button>
-    <button id="remove">Supprimer de ses jeux</button>
+    <div class="box">
+        <h1 data-id={{$game->id}}>{{ $game->name }}</h1>
+        <p>{{ $description }}</p>
+        
+        @if ($getThisGame)
+            <button class="add_remove_action" id="remove">Retirer de la bibliothéque</button>
+        @else
+            <button class="add_remove_action" id="add">Ajouter à ses jeux</button>
+        @endif
+    </div>
 @endsection
 
 @section('javascript')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const addGame = document.querySelector('#add');
-        const removeGame = document.querySelector('#remove');
+        const addRemoveAction = document.querySelector('.add_remove_action');
         const alert = document.querySelector('#alert');
+        const id = document.querySelector('h1').dataset.id;
 
         const addRemove = async elem => {
             const formData = new FormData();
             const action = elem.getAttribute('id') === "add" ? "add" : "remove";
             
-            formData.append('game', addGame.dataset.id);
+            formData.append('game', id);
             formData.append('action', action);
 
             try {
@@ -36,6 +42,15 @@
                     const data = await response.json();
                     alert.style.display = 'block';
                     alert.innerHTML = `<p>${data.response}</p>`;
+
+                    if (action == "add"){
+                        addRemoveAction.setAttribute("id", "remove");
+                        addRemoveAction.textContent = "Retirer de la bibliothéque";
+                    } else {
+                        addRemoveAction.setAttribute("id", "add");
+                        addRemoveAction.textContent = "Ajouter à ses jeux";
+                    }
+
                 } else {
                     console.error(response.status);
                 }
@@ -44,8 +59,8 @@
             }
         };
         
-        addGame.addEventListener('click', () => addRemove(addGame));
-        removeGame.addEventListener('click', () => addRemove(removeGame));
+        addRemoveAction.addEventListener('click', () => addRemove(addRemoveAction));
+        //removeGame.addEventListener('click', () => addRemove(removeGame));
     });
 </script>
 @endsection

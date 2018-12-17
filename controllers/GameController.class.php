@@ -3,6 +3,7 @@
 namespace Lag\Controller;
 
 use \Lag\Model\Game;
+use \Lag\Model\User;
 use \Lag\Core\Views;
 
 class GameController
@@ -16,13 +17,19 @@ class GameController
 
     public function showAction($params)
     {
+        $user = new User;
+        $user->id = 2;
+        $user->games();
+
         $game = new Game;
         $game->id = $params['URL'][0];
         $game->hydrate();
-
+        $getThisGame = in_array($game, $user->games);
+        
         return Views::render("games.show", array(
             "game" => $game,
-            "description" => $game->description
+            "description" => $game->description,
+            "getThisGame" => $getThisGame
         ));
     }
 }
