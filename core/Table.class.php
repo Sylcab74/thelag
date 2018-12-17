@@ -34,7 +34,6 @@ abstract class Table
         if (empty($this->id))
             die('try to hydrate without PK');
 
-        // recuperer les donnees en BDD
         $query = "SELECT * FROM ".$this->table_name." WHERE id = ".$this->id;
         $result = $this->myFetchAssoc($query);
 
@@ -57,8 +56,6 @@ abstract class Table
 
         if( !empty($this->id) )
         {
-            echo "<h1>update</h1>";
-
             $query = "UPDATE ".$this->table_name." SET ";
 
             foreach ($this->fields_list as $field_name)
@@ -88,16 +85,12 @@ abstract class Table
         }
     }
 
-    /**
-     * @TODO // Remove the namespace use for call the models
-     */
     public static function findAll()
     {
         $response = [];
-        $class = str_replace('Lag\\Model\\', '', get_called_class());
-        $query = "SELECT * FROM " . strtolower($class) . 's';
+        $query = "SELECT * FROM " . static::$table_name ;
         $results = self::myFetchAllAssoc($query);
-        $class = 'Lag\\Model\\' . $class;
+        $class =  get_called_class();
 
         foreach ($results as $result) {
             $obj = new $class();

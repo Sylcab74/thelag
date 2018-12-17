@@ -25,14 +25,40 @@ class CoachController
         $objCalendar = new Calendar;
         $calendar = $objCalendar->createCalendar($user);
         $days = $objCalendar->days;
+
         $start = key($calendar);
 
         return Views::render("coach.coach", array(
             "calendar" => $calendar,
             "user" => $user,
             "days" => $days,
+            'year' => date('Y'),
+            "month" => date('m'),
             "start" => key($calendar)
         ));
+    }
+
+    public function changeWeekAction($params)
+    {
+        $data = [];
+        
+        $post = $params['POST'];
+        $year = date('Y');
+        $objCalendar = new Calendar();
+
+        $user = new User;
+        $user->id = $post['user'];
+        $user->hydrate();
+
+        $dayMonth = $objCalendar->getDayAndMonth($post['first'], $post['last'], $post['month'], $post['action']);
+        $calendar = $objCalendar->createCalendar($user, current($dayMonth), key($dayMonth), $year);
+ 
+        $data['status'] = 'success';
+        $data['response']['calendar'] = $calendar;
+        $data['response']['start'] = key($calendar);
+        $data['response']['month'] = key($dayMonth);
+        
+        echo json_encode($data);
     }
 
 }
