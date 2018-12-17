@@ -2,7 +2,6 @@
 
 namespace Lag\Core;
 
-
 abstract class Table
 {
     public function dump()
@@ -19,7 +18,7 @@ abstract class Table
         $results = $this->myFetchAllAssoc($query);
         $class = get_called_class();
 
-        foreach ($results as $result) {  
+        foreach ($results as $result) {
             $obj = new $class;
             foreach ($obj->fields_list as $field_name){
                 $obj->{$field_name} = $result[$field_name];
@@ -39,7 +38,7 @@ abstract class Table
         $result = $this->myFetchAssoc($query);
 
         foreach ($this->fields_list as $field_name){
-           
+
             if (is_array($this->{$field_name})) {
                 $objRelation = 'Lag\\Model\\'.ucfirst($field_name);
                 $obj = new $objRelation;
