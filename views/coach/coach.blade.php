@@ -4,7 +4,15 @@
 
 @section('content')
     <h1>{{$user->login}}</h1>
+    <h2>{!! $user->firstname !!}</h2>
     @component('components.calendar') @endcomponent
+
+    <h2>Mes jeux</h2>
+    <ul>
+        @foreach($user->games as $game)
+            @component('components.gamecard',['game'=>$game]) @endcomponent    
+        @endforeach
+    </ul>
 @endsection
 
 @section('javascript')

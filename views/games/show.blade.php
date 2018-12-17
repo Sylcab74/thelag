@@ -7,7 +7,7 @@
     
     <div class="box">
         <h1 data-id={{$game->id}}>{{ $game->name }}</h1>
-        <p>{{ $description }}</p>
+        <p>{{ $game->description }}</p>
         
         @if ($getThisGame)
             <button class="add_remove_action" id="remove">Retirer de la bibliothéque</button>
@@ -60,7 +60,6 @@
         };
         
         addRemoveAction.addEventListener('click', () => addRemove(addRemoveAction));
-        //removeGame.addEventListener('click', () => addRemove(removeGame));
     });
 </script>
 @endsection

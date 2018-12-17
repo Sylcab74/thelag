@@ -21,6 +21,7 @@ class CoachController
         $user = new User;
         $user->id = $params['URL'][0];
         $user->hydrate();
+        $user->games();
 
         $objCalendar = new Calendar;
         $calendar = $objCalendar->createCalendar($user);

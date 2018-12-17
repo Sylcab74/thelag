@@ -28,7 +28,6 @@ class GameController
         
         return Views::render("games.show", array(
             "game" => $game,
-            "description" => $game->description,
             "getThisGame" => $getThisGame
         ));
     }
