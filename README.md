@@ -7,7 +7,8 @@
 ## Lancement du projet :
 
 1. `docker-compose up -d` à la racine
-2. Faites vous plaisir
+2. `docker-compose run composer install` pour installer les vendors
+3. Faites vous plaisir
 
 ## Arret du projet :
 
