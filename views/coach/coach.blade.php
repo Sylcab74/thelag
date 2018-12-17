@@ -45,13 +45,13 @@
                     
                     if (response.ok) {
                         const data = await response.json();
-                        const { calendar, start : newFirst } = data.response;
+                        const { calendar, start : newFirst, month } = data.response;
                         const start = numberDays.map(day => parseInt(day) + parseInt(Object.keys(calendar)[0]));
                         start.pop();
 
                         containerTable.innerHTML = "";
                         containerTable.innerHTML = `
-                        <table data-first="${newFirst}" data-month="12">
+                        <table data-first="${newFirst}" data-month="${month}">
                             <tbody>
                                 <tr>
                                     <th></th>

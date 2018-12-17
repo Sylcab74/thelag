@@ -86,13 +86,10 @@ abstract class Table
         }
     }
 
-    /**
-     * @TODO // Remove the namespace use for call the models
-     */
     public static function findAll()
     {
         $response = [];
-        $query = "SELECT * FROM " . static::$table_name . 's';
+        $query = "SELECT * FROM " . static::$table_name ;
         $results = self::myFetchAllAssoc($query);
         $class = 'Lag\\Model\\' . get_called_class();
 
