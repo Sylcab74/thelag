@@ -91,7 +91,7 @@ abstract class Table
         $response = [];
         $query = "SELECT * FROM " . static::$table_name ;
         $results = self::myFetchAllAssoc($query);
-        $class = 'Lag\\Model\\' . get_called_class();
+        $class =  get_called_class();
 
         foreach ($results as $result) {
             $obj = new $class();
