@@ -6,7 +6,7 @@ use \Lag\Core\Table;
 
 class Availability extends Table
 {
-    protected static $table_name = 'availabilities';
+    protected $table_name = 'availabilities';
     protected $fields_list = ['id','start','end','users_id'];
 
     public $id;

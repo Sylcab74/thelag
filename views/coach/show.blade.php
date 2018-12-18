@@ -114,9 +114,8 @@
             const addSession = async elem => {
                 const id = elem.dataset.id;
                 alert.style.display = 'flex';
-                return;
                 try {
-                    const response = await fetch(window.location.origin + '/session/addSession/' + id);
+                    const response = await fetch(window.location.origin + '/availability/getAvailability/' + id);
                     if (response.ok){
                         const data = await response.json();
                         console.log(data);

@@ -12,10 +12,11 @@ abstract class Table
         echo "</pre>";
     }
 
-    public static function findBy($column, $value)
+    public function findBy($column, $value)
     {
         $response = [];
-        $query = "SELECT * FROM ". static::$table_name . " WHERE " . $column . " = " . $value;
+        $query = "SELECT * FROM ". $this->$table_name . " WHERE " . $column . " = " . $value;
+ 
         $results = self::myFetchAllAssoc($query);
         $class = get_called_class();
 
@@ -35,7 +36,7 @@ abstract class Table
         if (empty($this->id))
             die('try to hydrate without PK');
 
-        $query = "SELECT * FROM ".$this->table_name." WHERE id = ".$this->id;
+        $query = "SELECT * FROM " . $this->table_name." WHERE id = ".$this->id;
         $result = $this->myFetchAssoc($query);
 
         foreach ($this->fields_list as $field_name){
@@ -44,7 +45,7 @@ abstract class Table
                 $objRelation = 'Lag\\Model\\'.ucfirst($field_name);
                 $obj = new $objRelation;
                 $column = strtolower($this->table_name).'_id';
-                $this->{$field_name} = $obj::findBy($column ,$this->id);
+                $this->{$field_name} = $obj->findBy($column ,$this->id);
             } else {
                 $this->{$field_name} = $result[$field_name];
             }
@@ -89,7 +90,7 @@ abstract class Table
     public static function findAll()
     {
         $response = [];
-        $query = "SELECT * FROM " . static::$table_name;
+        $query = "SELECT * FROM " . static::$table_name ;
         $results = self::myFetchAllAssoc($query);
         $class =  get_called_class();
 
@@ -110,7 +111,7 @@ abstract class Table
 
         if (empty($link))
             $link = mysqli_connect('db', 'root', 'root', 'lag') or die (mysqli_connect_error());
-        mysqli_set_charset($link, "utf8"); // Set the charset int UTF8;
+        mysqli_set_charset($link, "utf8"); // Set the charset in UTF8;
         $result = mysqli_query($link, $query) or die (mysqli_error($link));
         return $result;
     }
