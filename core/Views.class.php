@@ -1,5 +1,7 @@
 <?php
 
+namespace Lag\Core;
+
 use \eftec\bladeone\BladeOne;
 
 class Views

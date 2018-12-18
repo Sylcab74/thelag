@@ -1,8 +1,12 @@
 <?php
 
+namespace Lag\Model;
+
+use \Lag\Core\Table;
+
 class Game extends Table
 {
-    protected $table_name = 'games';
+    protected static $table_name = 'games';
     protected $fields_list = ['name', 'type', 'picture'];
 
     public $id;

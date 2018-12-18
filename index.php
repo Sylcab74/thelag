@@ -1,7 +1,11 @@
 <?php
-require 'vendor/autoload.php';
+namespace Lag;
+
+use \Lag\Controller\Calendar;
 
 session_start();
+
+require 'vendor/autoload.php';
 require "conf.inc.php";
 
 /***
@@ -10,16 +14,23 @@ require "conf.inc.php";
 function myAutoloader($class)
 {
     $class = $class.'.class.php';
-    if(file_exists("core/".$class))
+    $class = str_replace('Lag\\Service\\', '', $class);
+    $class = str_replace('Lag\\Model\\', '', $class);
+    $class = str_replace('Lag\\Core\\', '', $class);
+
+    
+    if(file_exists("models/".$class))
     {
-        include "core/".$class;
-    } else if (file_exists("models/".$class))
+        include_once("models/" . $class);
+    } else if (file_exists("core/".$class))
     {
-        include("models/" . $class);
+        include_once "core/".$class;
+    } else if (file_exists("services/".$class)) {
+        include_once("services/" . $class);
     }
 }
 
-spl_autoload_register("myAutoloader");
+spl_autoload_register("Lag\myAutoloader");
 
 $uri = substr(urldecode($_SERVER["REQUEST_URI"]), strlen(dirname($_SERVER["SCRIPT_NAME"])));
 
@@ -48,8 +59,8 @@ $params = [
 
 if(file_exists("controllers/".$c.".class.php")){
     include "controllers/".$c.".class.php";
+    $c = "Lag\\Controller\\" . $c;
     if( class_exists($c) ){
-
         $objC = new $c();
 
         if( method_exists($objC, $a) ){
