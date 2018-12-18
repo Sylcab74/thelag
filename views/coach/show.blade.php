@@ -16,11 +16,13 @@
     <div class="alert" id="alert">
         <div class="alert_container">
             <h2>Réservation</h2>
-            <form>
+            <form id="formSession">
                 <label for="start">Début</label>
                 <select name="start" id="start"></select><br>
                 <label for="duration">Durée</label>
                 <select name="duration" id="duration"></select><br>
+                <label for="game">Jeux</label>
+                <select name="game" id="game"></select><br>
                 <label for="comments">Commentaires</label>
                 <textarea name="comments" id="comments" cols="30" rows="10"></textarea><br>
                 <input type="submit" value="Valider">
@@ -42,6 +44,8 @@
             const alert = document.querySelector('#alert');
             const duration = document.querySelector('#duration');
             const start = document.querySelector('#start');
+            const game = document.querySelector('#game');
+            const formSession = document.querySelector("#formSession");
 
             const changeWeek = async elem => {
                 const table = document.querySelector('table');
@@ -121,9 +125,10 @@
                     if (response.ok){
                         const data = await response.json();
                         data.session.forEach((elem, index) => {
-                            start.innerHTML += `<option>${elem}</option>`;
-                            duration.innerHTML += `<option>${index+1}</option>`;
+                            start.innerHTML += `<option value="${elem[0]}">${elem[1]}</option>`;
+                            duration.innerHTML += `<option value="${index+1}" >${index+1}</option>`;
                         });
+                        data.games.forEach(elem => game.innerHTML += `<option value="${elem.id}">${elem.name}</option>`)
                     } else {
                         console.error(response.status);
                     }
