@@ -30,7 +30,7 @@ class Calendar
             }
 
             $calendar[$weekStart.'-'.$month] = [];
-            for ($i = 0; $i < 23; $i++ )
+            for ($i = 0; $i < 24; $i++ )
                 $calendar[$weekStart.'-'.$month][$i] = false;
 
             $weekStart++;
@@ -45,7 +45,7 @@ class Calendar
                 $end = date('G', strtotime($available->end));
  
                 for ($i = $hour; $i < $end; $i++)
-                    $calendar[$userDay.'-'.$month][$i] = true;
+                    $calendar[$userDay.'-'.$month][$i] = $available->id;
             }
         }
 

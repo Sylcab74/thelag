@@ -13,7 +13,7 @@ class CoachController
     {
         $users = User::findAll();
 
-        return Views::render("coach.coachs", array("users" => $users));
+        return Views::render("coach.index", array("users" => $users));
     }
 
     public function showAction($params)
@@ -29,7 +29,7 @@ class CoachController
 
         $start = key($calendar);
 
-        return Views::render("coach.coach", array(
+        return Views::render("coach.show", array(
             "calendar" => $calendar,
             "user" => $user,
             "days" => $days,

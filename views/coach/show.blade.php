@@ -13,6 +13,20 @@
             @component('components.gamecard',['game'=>$game]) @endcomponent    
         @endforeach
     </ul>
+    <div class="alert" id="alert">
+        <div class="alert_container">
+            <h2>Réservation</h2>
+            <form>
+                <label for="start">Début</label>
+                <select name="start" id="start"></select><br>
+                <label for="duration">Durée</label>
+                <select name="duration" id="duration"></select><br>
+                <label for="comments">Commentaires</label>
+                <textarea name="comments" id="comments" cols="30" rows="10"></textarea><br>
+                <input type="submit" value="Valider">
+            </form>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -24,6 +38,8 @@
             const containerTable = document.querySelector('#table');
             const previous = document.querySelector('#previous');
             const next = document.querySelector('#next');
+            const availabilities = document.querySelectorAll('.availability');
+            const alert = document.querySelector('#alert');
 
             const changeWeek = async elem => {
                 const table = document.querySelector('table');
@@ -73,8 +89,8 @@
                                             ${numberDays.map((elem, index) => {                                            
                                                 if (index == 0) {
                                                     return `<td>${hour}</td>`;
-                                                } else if (calendar[start[index-1]+'-12'] !== undefined && calendar[start[index-1]+'-12'][indexHours]) {
-                                                    return `<td style="background-color: green"></td>`;
+                                                } else if (calendar[start[index-1]+'-'+month] !== undefined && calendar[start[index-1]+'-'+month][indexHours] !== false) {
+                                                    return `<td style="background-color: green" data-id="${calendar[start[index-1]+'-'+month][indexHours]}" class="availability"></td>`;
                                                 } else if (index === numberDays.length){
                                                     return;
                                                 } else {
@@ -95,6 +111,24 @@
                 }
             };
 
+            const addSession = async elem => {
+                const id = elem.dataset.id;
+                alert.style.display = 'flex';
+                return;
+                try {
+                    const response = await fetch(window.location.origin + '/session/addSession/' + id);
+                    if (response.ok){
+                        const data = await response.json();
+                        console.log(data);
+                    } else {
+                        console.error(response.status);
+                    }
+                } catch(e) {
+                    console.error(e);
+                }
+            };
+
+            availabilities.forEach(elem => elem.addEventListener('click', () => addSession(elem)));
             previous.addEventListener('click', () => changeWeek(previous));
             next.addEventListener('click', () => changeWeek(next));
         })

@@ -12,11 +12,11 @@ abstract class Table
         echo "</pre>";
     }
 
-    public function findBy($column, $value)
+    public static function findBy($column, $value)
     {
         $response = [];
-        $query = "SELECT * FROM ".$this->table_name." WHERE " . $column . " = ".$value;
-        $results = $this->myFetchAllAssoc($query);
+        $query = "SELECT * FROM ". static::$table_name . " WHERE " . $column . " = " . $value;
+        $results = self::myFetchAllAssoc($query);
         $class = get_called_class();
 
         foreach ($results as $result) {
@@ -44,7 +44,7 @@ abstract class Table
                 $objRelation = 'Lag\\Model\\'.ucfirst($field_name);
                 $obj = new $objRelation;
                 $column = strtolower($this->table_name).'_id';
-                $this->{$field_name} = $obj->findBy($column ,$this->id);
+                $this->{$field_name} = $obj::findBy($column ,$this->id);
             } else {
                 $this->{$field_name} = $result[$field_name];
             }
@@ -89,7 +89,7 @@ abstract class Table
     public static function findAll()
     {
         $response = [];
-        $query = "SELECT * FROM " . static::$table_name ;
+        $query = "SELECT * FROM " . static::$table_name;
         $results = self::myFetchAllAssoc($query);
         $class =  get_called_class();
 
