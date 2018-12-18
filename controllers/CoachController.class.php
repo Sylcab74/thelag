@@ -21,6 +21,7 @@ class CoachController
         $user = new User;
         $user->id = $params['URL'][0];
         $user->hydrate();
+        $user->games();
 
         $objCalendar = new Calendar;
         $calendar = $objCalendar->createCalendar($user);
@@ -60,5 +61,25 @@ class CoachController
         
         echo json_encode($data);
     }
+    
+    public function handleGameAction($params)
+    {
+        $data = [];
 
+        $post = $params['POST'];
+        $user = new User;
+        $user->id = 2;
+
+        if ($post['action'] === "add") {
+            $user->addGame($post['game']);
+            $data['response'] = 'Le jeu a bien été ajouté à votre bibliothéque !';
+        } else {
+            $user->removeGame($post['game']);
+            $data['response'] = 'Le jeu a bien été supprimé de votre bibliothéque !';
+        }
+        
+        $data['status'] = 'success';
+       
+        echo json_encode($data);
+    }
 }

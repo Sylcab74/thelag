@@ -4,6 +4,7 @@ namespace Lag\Core;
 
 abstract class Table
 {
+    
     public function dump()
     {
         echo "<pre>";
@@ -109,6 +110,7 @@ abstract class Table
 
         if (empty($link))
             $link = mysqli_connect('db', 'root', 'root', 'lag') or die (mysqli_connect_error());
+        mysqli_set_charset($link, "utf8"); // Set the charset int UTF8;
         $result = mysqli_query($link, $query) or die (mysqli_error($link));
         return $result;
     }
