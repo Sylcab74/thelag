@@ -40,6 +40,8 @@
             const next = document.querySelector('#next');
             const availabilities = document.querySelectorAll('.availability');
             const alert = document.querySelector('#alert');
+            const duration = document.querySelector('#duration');
+            const start = document.querySelector('#start');
 
             const changeWeek = async elem => {
                 const table = document.querySelector('table');
@@ -118,7 +120,10 @@
                     const response = await fetch(window.location.origin + '/availability/getAvailability/' + id);
                     if (response.ok){
                         const data = await response.json();
-                        console.log(data);
+                        data.session.forEach((elem, index) => {
+                            start.innerHTML += `<option>${elem}</option>`;
+                            duration.innerHTML += `<option>${index+1}</option>`;
+                        });
                     } else {
                         console.error(response.status);
                     }
