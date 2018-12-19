@@ -6,7 +6,7 @@ use \Lag\Core\Table;
 
 class Session extends Table
 {
-    protected $table_name = 'sessions';
+    protected static $table_name = 'sessions';
     protected $fields_list = ['id', 'start', 'end', 'participant_id', 'coach_id', 'games_id', 'availabilities_id'];
 
     public $id;
