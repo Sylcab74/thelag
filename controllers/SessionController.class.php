@@ -2,6 +2,7 @@
 
 namespace Lag\Controller;
 
+use DateTime;
 use \Lag\Service\Calendar;
 use \Lag\Model\{User, Session};
 
@@ -20,7 +21,7 @@ class SessionController
         $session->comments = $post['comments'];
 
         $start = explode('/', $post['start']);
-        $time = new \DateTime('2018-' . $start[0] . ' ' . $start[1] . ':00:00');
+        $time = new DateTime('2018-' . $start[0] . ' ' . $start[1] . ':00:00');
         $session->start = $time->format('Y-m-d H:i:s');
         $session->end = $time->modify('+' . $post['duration'] . 'hour')->format('Y-m-d H:i:s');
 

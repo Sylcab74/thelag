@@ -1,17 +1,17 @@
 @extends('layouts.test')
 
-@section('title', 'Le titre')
+@section('title', 'Coachs')
 
 
 @section('content')
 
     <div class="box">
         <ul>
-        @forelse ($users as $user)
-            <li>{{ $user->login }} - {{$user->firstname}} - {{$user->lastname}} - {{$user->email}}</li>
-        @empty
-            <p>No users</p>
-        @endforelse
+            @forelse ($users as $user)
+                <li><a href="/coach/show/{{ $user->id }}">{{ $user->firstname }}</a></li>
+            @empty
+                <p>Aucun utilisateur n'a été créé</p>
+            @endforelse
         </ul>
     </div>
 @endsection

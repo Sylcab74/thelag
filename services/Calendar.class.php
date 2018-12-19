@@ -3,6 +3,7 @@
 namespace Lag\Service;
 
 use \Lag\Model\User;
+use \Lag\Model\Session;
 
 class Calendar
 {
@@ -18,34 +19,55 @@ class Calendar
         $calendar = [];
         $date = $day === null ? 'now' : $day . '-' . $month . '-' . $year;
         $date = strtotime($date);
-        $month = date('m', $date);
-        $lastDay = (new \DateTime('1-'.$month . '-2018'))->format('t');
+        $monthDate = date('m', $date);
+        $lastDay = (new \DateTime('1-'.$monthDate . '-2018'))->format('t');
         $numericDay = date('w', $date) == 0 ? 7 : date('w', $date);
         $weekStart = $day === null ? intval(date('d', strtotime('-'.($numericDay - 1).' days'))) : intval(date('d', $date));
+
+        $objSession = new Session;
+        $startSession = '2018-' . $monthDate  . '-' . $weekStart . ' 00:00:00';
 
         for ($u = 0; $u < 7; $u++){
             if ($weekStart > $lastDay){
                 $weekStart = 1;
-                $month++;
+                $monthDate++;
             }
 
-            $calendar[$weekStart.'-'.$month] = [];
+            $calendar[$weekStart.'-'.$monthDate] = [];
             for ($i = 0; $i < 24; $i++ )
-                $calendar[$weekStart.'-'.$month][$i] = false;
+                $calendar[$weekStart.'-'.$monthDate][$i] = false;
 
             $weekStart++;
         }
-        
+
         foreach ($user->availability as $available) {
             $userMonth = date('m', strtotime($available->start));
             $userDay = date('d', strtotime($available->start));
 
-            if ($userMonth === $month && isset($calendar[$userDay.'-'.$month])) {
+            if ($userMonth === $monthDate && isset($calendar[$userDay.'-'.$monthDate])) {
                 $hour = date('G', strtotime($available->start));
                 $end = date('G', strtotime($available->end));
  
                 for ($i = $hour; $i < $end; $i++)
-                    $calendar[$userDay.'-'.$month][$i] = $available->id;
+                    $calendar[$userDay.'-'.$monthDate][$i] = $available->id;
+            }
+        }
+
+
+        $endSession = '2018-' . $monthDate  . '-' . $weekStart . ' 00:00:00';
+        $sessions = $objSession->getSessionBetweenTwoDate($startSession, $endSession);
+        if (count($sessions) > 0) {
+            foreach ($sessions as $session) {
+                $sessionMonth = date('m', strtotime($session['start']));
+                $sessionDay = date('d', strtotime($session['start']));
+
+                if ($sessionMonth === $monthDate && isset($calendar[$sessionDay.'-'.$monthDate])) {
+                    $hour = date('G', strtotime($session['start']));
+                    $end = date('G', strtotime($session['end']));
+
+                    for ($i = $hour; $i < $end; $i++)
+                        $calendar[$sessionDay.'-'.$monthDate][$i] = "session";
+                }
             }
         }
 

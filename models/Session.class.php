@@ -17,4 +17,11 @@ class Session extends Table
     public $games_id;
     public $comments;
     public $availabilities_id;
+
+    public function getSessionBetweenTwoDate($start, $end)
+    {
+        $query = "SELECT * FROM sessions WHERE start > '" . $start . "' AND end < '" . $end ."'";
+
+        return $this->myFetchAllAssoc($query);
+    }
 }

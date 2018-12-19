@@ -58,12 +58,10 @@ abstract class Table
     {
         global $link;
 
-        if( !empty($this->id) )
-        {
+        if ( !empty($this->id) ) {
             $query = "UPDATE ".static::$table_name." SET ";
 
-            foreach ($this->fields_list as $field_name)
-            {
+            foreach ($this->fields_list as $field_name) {
                 if(!empty($this->{$field_name}))
                     $query .= " ".$field_name ." = '". $this->{$field_name}."' , ";
             }
@@ -83,8 +81,6 @@ abstract class Table
             $query = rtrim($query, ',');
             $query .= ")";
 
-            var_dump($query);
-
             $this->myQuery($query);
             $this->id = mysqli_insert_id($link);
 
@@ -94,15 +90,14 @@ abstract class Table
     public function findAll()
     {
         $response = [];
-        $class =  get_called_class();
-        $query = "SELECT * FROM " . (new $class)->table_name;
+        $query = "SELECT * FROM " . static::$table_name;
         $results = self::myFetchAllAssoc($query);
+        $class =  get_called_class();
 
         foreach ($results as $result) {
             $obj = new $class();
-            foreach ($obj->fields_list as $field_name){
+            foreach ($obj->fields_list as $field_name)
                 $obj->{$field_name} = $result[$field_name];
-            }
             $response[] = $obj;
         }
 
