@@ -25,6 +25,7 @@
                 <select name="game" id="game"></select><br>
                 <label for="comments">Commentaires</label>
                 <textarea name="comments" id="comments" cols="30" rows="10"></textarea><br>
+                <input type="hidden" value="" name="availability">
                 <input type="submit" value="Valider">
             </form>
         </div>
@@ -37,20 +38,23 @@
 
             const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
             const hours = [...Array(24).keys()];
-            const containerTable = document.querySelector('#table');
-            const previous = document.querySelector('#previous');
-            const next = document.querySelector('#next');
-            const availabilities = document.querySelectorAll('.availability');
-            const alert = document.querySelector('#alert');
-            const duration = document.querySelector('#duration');
-            const start = document.querySelector('#start');
-            const game = document.querySelector('#game');
+
+            const availabilityInput = document.querySelector('input[name="availability"]');
             const formSession = document.querySelector("#formSession");
+            const containerTable = document.querySelector('#table');
+            const duration = document.querySelector('#duration');
+            const previous = document.querySelector('#previous');
+            const start = document.querySelector('#start');
+            const alert = document.querySelector('#alert');
+            const game = document.querySelector('#game');
+            const next = document.querySelector('#next');
+
+            const availabilities = document.querySelectorAll('.availability');
+            const url = window.location.href.split('/');
+            const user = url[url.length-1];
 
             const changeWeek = async elem => {
                 const table = document.querySelector('table');
-                const url = window.location.href.split('/');
-                const user = url[url.length-1];
                 const first = table.dataset.first;
                 const month = table.dataset.month;
                 const last = parseInt(first) + 6;
@@ -117,13 +121,39 @@
                 }
             };
 
-            const addSession = async elem => {
+            const addSession = async (e, form)=> {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                formData.append('user', user);
+
+                try {
+                    const response = await fetch(window.location.origin + '/session/create', {
+                        method: 'POST',
+                        mode: "cors",
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        alert.style.display = 'none';
+                    } else {
+                        console.error(response.status);
+                    }
+                } catch(e) {
+                    console.error(e);
+                }
+            };
+
+            const getAvailabality = async elem => {
                 const id = elem.dataset.id;
                 alert.style.display = 'flex';
+
                 try {
                     const response = await fetch(window.location.origin + '/availability/getAvailability/' + id);
                     if (response.ok){
                         const data = await response.json();
+
+                        availabilityInput.value = id;
                         data.session.forEach((elem, index) => {
                             start.innerHTML += `<option value="${elem[0]}">${elem[1]}</option>`;
                             duration.innerHTML += `<option value="${index+1}" >${index+1}</option>`;
@@ -137,7 +167,13 @@
                 }
             };
 
-            availabilities.forEach(elem => elem.addEventListener('click', () => addSession(elem)));
+            /*alert.addEventListener('click', e => {
+                e.stopPropagation();
+                alert.style.display = "none"
+            });*/
+
+            availabilities.forEach(elem => elem.addEventListener('click', () => getAvailabality(elem)));
+            formSession.addEventListener('submit', e => addSession(e, formSession));
             previous.addEventListener('click', () => changeWeek(previous));
             next.addEventListener('click', () => changeWeek(next));
         })

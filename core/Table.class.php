@@ -4,7 +4,7 @@ namespace Lag\Core;
 
 abstract class Table
 {
-    
+
     public function dump()
     {
         echo "<pre>";
@@ -15,10 +15,10 @@ abstract class Table
     public static function findBy($column, $value)
     {
         $response = [];
-        $class = get_called_class();
-        $query = "SELECT * FROM ". (new $class)->table_name . " WHERE " . $column . " = " . $value;
- 
+
+        $query = "SELECT * FROM ".static::$table_name." WHERE " . $column . " = ".$value;
         $results = self::myFetchAllAssoc($query);
+        $class = get_called_class();
 
         foreach ($results as $result) {
             $obj = new $class;
@@ -36,7 +36,8 @@ abstract class Table
         if (empty($this->id))
             die('try to hydrate without PK');
 
-        $query = "SELECT * FROM " . $this->table_name." WHERE id = ".$this->id;
+
+        $query = "SELECT * FROM ".static::$table_name." WHERE id = ".$this->id;
         $result = $this->myFetchAssoc($query);
 
         foreach ($this->fields_list as $field_name){
@@ -44,8 +45,9 @@ abstract class Table
             if (is_array($this->{$field_name})) {
                 $objRelation = 'Lag\\Model\\'.ucfirst($field_name);
                 $obj = new $objRelation;
-                $column = strtolower($this->table_name).'_id';
-                $this->{$field_name} = $obj::findBy($column ,$this->id);
+                $column = strtolower(static::$table_name).'_id';
+                $this->{$field_name} = $obj->findBy($column ,$this->id);
+
             } else {
                 $this->{$field_name} = $result[$field_name];
             }
@@ -58,28 +60,30 @@ abstract class Table
 
         if( !empty($this->id) )
         {
-            $query = "UPDATE ".$this->table_name." SET ";
+            $query = "UPDATE ".static::$table_name." SET ";
 
             foreach ($this->fields_list as $field_name)
             {
                 if(!empty($this->{$field_name}))
                     $query .= " ".$field_name ." = '". $this->{$field_name}."' , ";
             }
-            $query = rtrim($query, ', ');
 
+            $query = rtrim($query, ', ');
             $query .= " WHERE id = '".$this->id."'";
 
             $this->myQuery($query);
 
-        }else
-        {
-            $query = "INSERT INTO ".$this->table_name." (".implode(", ", $this->fields_list).") VALUES (";
+        } else {
+
+            $query = "INSERT INTO " . static::$table_name . " (".implode(", ", $this->fields_list).") VALUES (";
+
             foreach ($this->fields_list as $column)
-            {
                 $query .= "'".$this->{$column}."' ,";
-            }
+
             $query = rtrim($query, ',');
             $query .= ")";
+
+            var_dump($query);
 
             $this->myQuery($query);
             $this->id = mysqli_insert_id($link);
@@ -87,7 +91,7 @@ abstract class Table
         }
     }
 
-    public static function findAll()
+    public function findAll()
     {
         $response = [];
         $class =  get_called_class();
