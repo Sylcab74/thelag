@@ -6,7 +6,7 @@ use \Lag\Core\Table;
 
 class User extends Table
 {
-    protected $table_name = 'users';
+    protected static $table_name = 'users';
     protected $fields_list = ['id','login', 'password', 'email', 'firstname', 'lastname', 'picture', 'availability'];
 
     public $id;
