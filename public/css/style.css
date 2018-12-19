@@ -1,3 +1,7 @@
+body{
+    margin:0 auto;
+}
+
 .box {
     box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
     border: 2px solid black;
@@ -43,8 +47,37 @@
     text-align: center;
 }
 
+#main-menu{
+    width: 100%;
+    background: #6395a3;
+    font-family: "titillium";
+    list-style-type: none;
+    color:white;
+    font-size: 20px;
+    text-align: center;
+}
+#main-menu ul li{
+    display: inline-block;
+    list-style-type: none;
+    padding: 30px 50px;
+}
+#main-menu img{
+    height:50px;
+    position: absolute;
+    left: 8%;
+    top:20px;
+}
+#main-menu a, a:active{
+    color: white;
+}
+
 @font-face {
 font-family: 'roboto';
 src: url('../fonts/Roboto-Regular.ttf');
+font-weight: 900;
+}
+@font-face {
+font-family: 'titillium';
+src: url('../fonts/Titillium.ttf');
 font-weight: 900;
 }
