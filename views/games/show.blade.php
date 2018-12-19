@@ -3,17 +3,19 @@
 @section('title', $game->name)
 
 @section('content')
-    <div id="alert" style="display: none"></div>
-    
     <div class="box">
-        <h1 data-id={{$game->id}}>{{ $game->name }}</h1>
-        <p>{{ $game->description }}</p>
+        <div id="alert" style="display: none"></div>
+        <h1 data-id={{$game->id}}>{{ $game->name }}</h1>     
+        <img class="game-pic" src="{{$game->picture}}"/>
+        <h2>{{ $game->type }}</h2>
+        <p class="game-description">{{ $game->description }}</p>
         
         @if ($getThisGame)
             <button class="add_remove_action" id="remove">Retirer de la bibliothéque</button>
         @else
             <button class="add_remove_action" id="add">Ajouter à ses jeux</button>
         @endif
+        
     </div>
 @endsection
 

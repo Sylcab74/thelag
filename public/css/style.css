@@ -1,12 +1,19 @@
 body{
     margin:0 auto;
 }
-
+h1{
+    font-family: 'titillium';
+    color:#204e4b;
+    text-transform: uppercase;
+}
+h2{
+    font-size: 18px;
+    font-family: 'titillium';
+    color:#204e4b;
+    text-transform: uppercase;
+}
 .box {
-    box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
-    border: 2px solid black;
     width: 75%;
-    border-radius: 12px;
     margin-left: 12.5%;
     text-align: center;
 }
@@ -67,10 +74,21 @@ body{
     left: 8%;
     top:20px;
 }
+#main-menu ul{
+    margin:0 !important;
+}
 #main-menu a, a:active{
     color: white;
 }
-
+.game-description{
+    padding: 20px;
+    font-family: 'roboto';
+    text-align: justify;
+}
+.game-pic{
+    padding:20px;
+    width:250px;
+}
 @font-face {
 font-family: 'roboto';
 src: url('../fonts/Roboto-Regular.ttf');
