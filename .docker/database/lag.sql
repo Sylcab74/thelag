@@ -25,6 +25,8 @@ CREATE TABLE IF NOT EXISTS `lag`.`users` (
   `login` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
+  `biography` VARCHAR(255) NOT NULL,
+  `price` float NOT NULL,
   `firstname` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
   `picture` VARCHAR(125) NULL,
