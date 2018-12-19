@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<div class="container">
+<main>
     @yield('content')
-</div>
+<main>
 @yield('javascript')
 </body>
 </html>

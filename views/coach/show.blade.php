@@ -1,18 +1,41 @@
 @extends('layouts.test')
 
-@section('title', 'Le titre')
+@section('title', $user->login)
 
 @section('content')
-    <h1>{{$user->login}}</h1>
-    <h2>{!! $user->firstname !!}</h2>
-    @component('components.calendar') @endcomponent
 
-    <h2>Mes jeux</h2>
-    <ul>
-        @foreach($user->games as $game)
-            @component('components.gamecard',['game'=>$game]) @endcomponent    
-        @endforeach
-    </ul>
+    <section class="profil">
+        <div class="profil_container">
+            <img src="{{$user->picture}}" alt="{{$user->login}}" class="profil_container__picture">
+            <div class="profil_container__informations">
+                <h1>{{$user->login}}</h1>
+                <ul>
+                    <li>{{ $user->firstname }} {{ $user->lastname }}</li>
+                    <li>{{ $user->email }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="profil_bio">
+            <h2>Sa bio</h2>
+            <p>{{ $user->biography }}</p>
+        </div>
+        <div class="profil_stats">
+            <h2>Ses stats</h2>
+            <p>{{ $user->price}}€/h</p>
+        </div>
+    </section>
+    <section class="games">
+        <h2>Ses jeux</h2>
+        <ul>
+            @foreach($user->games as $game)
+                @component('components.gamecard',['game'=>$game]) @endcomponent
+            @endforeach
+        </ul>
+    </section>
+    <section class="calendar">
+        <h2>Ses disponibilités</h2>
+        @component('components.calendar') @endcomponent
+    </section>
     <div class="alert" id="alert">
         <div class="alert_container">
             <h2>Réservation</h2>
@@ -40,6 +63,7 @@
             const hours = [...Array(24).keys()];
 
             const availabilityInput = document.querySelector('input[name="availability"]');
+            const dateButton = document.querySelector('.button-availability h3');
             const formSession = document.querySelector("#formSession");
             const containerTable = document.querySelector('#table');
             const duration = document.querySelector('#duration');
@@ -83,22 +107,24 @@
                         const start = numberDays.map(day => parseInt(day) + parseInt(Object.keys(calendar)[0]));
                         start.pop();
 
+
                         containerTable.innerHTML = "";
+                        dateButton.textContent = `Du ${newFirst.split('-')[0]} au ${parseInt(newFirst.split('-')[0]) + 6}`;
+
                         containerTable.innerHTML = `
                         <table data-first="${newFirst}" data-month="${month}">
                             <tbody>
                                 <tr>
                                     <th></th>
                                     ${Object.keys(calendar).map((elem, index) => {
-                                        let date = elem.split('-');
-                                        return `<th>${days[index]} ${date[0]}</th>`;
+                                        return `<th>${days[index]} </th>`;
                                     })}
                                 </tr>
                                 ${hours.map((hour, indexHours) => {
                                     return (`<tr>
                                             ${numberDays.map((elem, index) => {                                            
                                                 if (index == 0) {
-                                                    return `<td>${hour}</td>`;
+                                                    return `<td>${hour}h00</td>`;
                                                 } else if (calendar[start[index-1]+'-'+month] !== undefined && calendar[start[index-1]+'-'+month][indexHours] !== false) {
                                                     return `<td style="background-color: green" data-id="${calendar[start[index-1]+'-'+month][indexHours]}" class="availability"></td>`;
                                                 } else if (index === numberDays.length){

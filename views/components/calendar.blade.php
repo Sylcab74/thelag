@@ -1,12 +1,15 @@
-<button id="previous">&lt</button>
-<button id="next">&gt</button>
+<div class="button-availability">
+    <button id="previous">&lt</button>
+    <h3>Du {{ explode('-',$start)[0] }} au {{$start + 6}}</h3>
+    <button id="next">&gt</button>
+</div>
 <div id="table">
     <table data-month={{$month}} data-first={{$start}} data-year={{$year}}>
         <tbody>
             <tr>
                 <th></th>
                 @foreach ($calendar as $key => $day)
-                    <th>{{ $days[$loop->index-1] }} {{ reset(explode('-',$key)) }}</th>
+                    <th>{{ $days[$loop->index-1] }}</th>
                 @endforeach
             </tr>
 
@@ -15,11 +18,11 @@
                     @for($u = $start-1; $u <= $start + 6; $u++)
                         
                         @if ($u == $start-1)
-                            <td>{{$i}}</td>
+                            <td>{{$i}}h00</td>
                         @elseif ($calendar[$u.'-'.$month][$i] === "session")
-                            <td style="background: blue" class="session"></td>
+                            <td class="session"></td>
                         @elseif ($calendar[$u.'-'.$month][$i] !== false)
-                            <td style="background: green" data-id={{$calendar[$u.'-'.$month][$i]}} class="availability"></td>
+                            <td data-id={{$calendar[$u.'-'.$month][$i]}} class="availability"></td>
                         @else
                             <td></td>                        
                         @endif

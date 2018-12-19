@@ -1,3 +1,54 @@
+/*
+    Reset
+ */
+
+*{
+    box-sizing: border-box;
+}
+body {
+    font: 16px 'roboto';
+    margin: 0;
+    font-weight: 300;
+}
+blockquote{
+    border-left: 3px solid rgb(204, 204, 204);
+    margin: 35px 0 10px 0;
+    padding-left: 10px;
+}
+button {
+    padding: 10px 20px;
+    border-radius: 0;
+    border: 0;
+    background: rgb(37, 54, 53);
+    color: rgb(255, 255, 255);
+}
+h1,
+h2,
+p,
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+h2 {
+    font-size: 2em;
+}
+
+/**
+    Variable
+*/
+
+:root {
+    --green : rgb(34, 78, 75);
+    --availability : rgb(208, 218, 217);
+    --session: rgb(254, 204, 205);
+    --hard-green : rgb(45, 45, 45);
+}
+
+/**
+    Theme
+*/
+
 .box {
     box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
     border: 2px solid black;
@@ -18,20 +69,20 @@
     padding:0;
     display: inline-block; 
     list-style-type: none;
-    width: 160px;
+    width: 240px;
     background:#204e4b;
-    height:250px;
+    height:350px;
     border-radius: 10px;
     overflow:hidden;
     margin:20px;
 }
 
 .li_game h2{
-    font-size: 14px;
+    font-size: 1.8em;
     text-align: center;
-    margin-left: 5px;
-    color:white;
-    font-family:'roboto';
+    color: white;
+    font-family: 'roboto';
+    padding-top: 5px;
 
 }
 .li_game p{
@@ -49,6 +100,10 @@ src: url('../fonts/Roboto-Regular.ttf');
 font-weight: 900;
 }
 
+/**
+    Pop up alert
+*/
+
 .alert {
     position: absolute;
     display: none;
@@ -64,4 +119,95 @@ font-weight: 900;
     background: #fff;
     padding: 20px 40px;
     border-radius: 20px;
+}
+
+/**
+    Profil page
+*/
+
+.profil {
+    background: var(--hard-green);
+    color: white;
+    padding: 30px 120px;
+    min-height: 400px;
+}
+.profil_container {
+    display: inline-flex;
+    float: left;
+    width: 50%;
+}
+.profil p {
+    padding-bottom: 20px;
+}
+.profil h2{
+    padding-bottom: 20px;
+}
+.profil_container h1 {
+    font-size: 4em;
+}
+.profil_container ul {
+    font-size: 1.4em;
+}
+
+.profil_bio, .profil_stats {
+    display: inline-block;
+    width: 50%;
+}
+.profil_container__picture {
+    display: inline-block;
+    float: left;
+    border-radius: 50%;
+    margin-right: 30px;
+    width: 300px;
+    height: 300px;
+}
+
+.games {
+    padding: 20px 100px;
+}
+.calendar {
+    padding: 20px 100px;
+    background: var(--green);
+    color: white;
+}
+
+/**
+    Calendar
+ */
+.availability {
+    background: var(--availability);
+}
+.session{
+    background: var(--session);
+}
+.button-availability {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: 20px auto;
+}
+table {
+    background: white;
+    border-collapse: collapse;
+}
+th:first-child, td:first-child {
+    width: 70px;
+}
+th, td {
+    text-align: center;
+    width: 120px;
+    border-left: 1px solid black;
+}
+th {
+    height: 40px;
+}
+td {
+    height: 30px;
+}
+#table {
+    display: flex;
+    margin-top: 30px;
+    align-items : center;
+    flex-direction: column;
+    width: 100%;
 }
