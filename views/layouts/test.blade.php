@@ -16,11 +16,42 @@
             <a href="#"><li>CONTACT</li></a>
         </ul>
     </div>
-</header>
+    <div role="nav" id="user-navbar">
+        <div role="img" id="circle"></div>
+        <img id="caret" src="../../public/img/caret.png"/>
+    </div>
+    <div role="nav" id="hidden-menu">
+        <ul>
+        <li><a href="#">Mon profil</a></li>
+        <li><a href="#">Se déconnecter</a></li>
+        </ul>
+    </div>
 <main>
 
     @yield('content')
 <main>
+
+<script>
+var flag = false;
+var menu = document.getElementById("hidden-menu");
+document.getElementById("user-navbar").addEventListener("click",function(){
+    if (!flag){
+        menu.getElementsByTagName("li")[0].setAttribute("style","display:block");
+        menu.getElementsByTagName("li")[1].setAttribute("style","display:block");
+        document.getElementById("hidden-menu").style.visibility='visible';
+        document.getElementById("hidden-menu").style.height='60px';
+        document.getElementById("hidden-menu").style.transition="0.25s";
+        flag=true;
+    } else {
+        menu.getElementsByTagName("li")[0].setAttribute("style","display:none");
+        menu.getElementsByTagName("li")[1].setAttribute("style","display:none");
+        document.getElementById("hidden-menu").style.visibility='hidden';
+        document.getElementById("hidden-menu").style.height = "0";
+        flag=false;
+}
+        
+});
+</script>
 @yield('javascript')
-</body>
+</body
 </html>
