@@ -34,6 +34,9 @@ class UserController
             if(!empty(User::findBy('email', $post['email'])))
                 $errors[] = "Désolé cet email est déjà utilisé";
 
+            if( $post['password'] !== $post['password_verify'])
+                $errors[] = "Les mots de passe ne correspondent pas";
+
             if( strlen($post['password']) < 8)
                 $errors[] = "Désolé, votre mot de passe doit contenir plus de 8 caractères";
 
@@ -46,7 +49,7 @@ class UserController
                 $user->firstname = $post['firstname'];
                 $user->lastname = $post['lastname'];
                 $user->email = $post['email'];
-                $user->picture = "/";
+                $user->picture = "https://lorempixel.com/640/480/?29141";
                 $user->password = password_hash($post['password'], PASSWORD_DEFAULT);
                 $user->biography = $post['biography'];
                 $user->price = $post['price'];

@@ -21,6 +21,8 @@
         <input type="email" name="email" id="email"><br>
         <label for="password">Mot de passe</label>
         <input type="password" name="password" id="password"><br>
+        <label for="password">Mot de passe</label>
+        <input type="password" name="password_verify" id="password_verify"><br>
         <label for="biography">Biographie</label>
         <textarea name="biography" id="" cols="30" rows="10"></textarea><br>
         <label for="price">Price</label>

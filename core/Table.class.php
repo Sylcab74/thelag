@@ -84,7 +84,6 @@ abstract class Table
 
             $query = rtrim($query, ',');
             $query .= ")";
-            $query = str_replace('id,', '', $query);
 
             $this->myQuery($query);
             $this->id = mysqli_insert_id($link);
