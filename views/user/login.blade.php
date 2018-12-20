@@ -12,7 +12,7 @@
     @endif
 
     <form id="addUser" action="/user/login" method="POST">
-        <label for="identifiant">Identifiant</label>
+        <label for="login">Identifiant</label>
         <input type="text" name="login" id="login"><br>
         <label for="password">Mot de passe</label>
         <input type="password" name="password" id="password"><br>

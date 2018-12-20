@@ -5,7 +5,7 @@
 @section('content')
     <div role="search" class="searchbar">
         <form id="searchGamesCoach">
-            <input type="text" class="search_games" id="search" placeholder="RECHERCHER UN JEU OU UN COACH">
+            <input type="text" class="search_home" id="search" placeholder="RECHERCHER UN JEU OU UN COACH">
             <select id="filter">
                 <option value="jeu">JEU</option>
                 <option value="coach">COACH</option>
@@ -25,10 +25,10 @@
     </div>
     <div class="partnership">
         <h1>ILS NOUS ONT REJOINT</h1>
-        <img class="footer-pic" src="../../public/img/logo1.png"/>
-        <img class="footer-pic" src="../../public/img/logo2.png"/>
-        <img class="footer-pic" src="../../public/img/logo3.png"/>
-        <img class="footer-pic" src="../../public/img/logo4.png"/>
+        <img class="footer-pic" src="../../public/img/logo1.png" alt="logo1"/>
+        <img class="footer-pic" src="../../public/img/logo2.png" alt="logo2"/>
+        <img class="footer-pic" src="../../public/img/logo3.png" alt="logo3"/>
+        <img class="footer-pic" src="../../public/img/logo4.png" alt="logo4"/>
     </div>
     <div>
         <ul id="searchResult">

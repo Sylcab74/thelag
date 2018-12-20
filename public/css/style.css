@@ -161,7 +161,7 @@ h2 {
     height:80px;
     padding:20px;
 }
-.searchbar .search_games, .searchbar #search_coachs{
+.searchbar .search_games, .searchbar #search_coachs, .search_home {
     border-radius:50px;
     width:75%;
     height:40px;
@@ -171,6 +171,9 @@ h2 {
     font-family: "titillium";
     padding: 10px;
     outline: none;
+}
+.search_home {
+    display: inline-block;
 }
 #circle{
     position: absolute;
@@ -198,13 +201,15 @@ h2 {
     z-index: 999;
     visibility: hidden;
     height: 0;
-    width:200px;
+    width: 220px;
     background:#6395a3;
     position: absolute;
     right: 0;
     top: 90px;
 }
-
+input[type="submit"]{
+    font-size: 13px;
+}
 li a{
     text-transform: uppercase;
     font-family: 'titillium';
@@ -228,9 +233,6 @@ li a{
     margin:0 auto;
 }
 .searchbar select{
-    position: absolute;
-    right:10vh;
-    top:15vh;
     height:40px;
     border-radius: 10px;
 }

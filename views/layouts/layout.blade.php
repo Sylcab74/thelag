@@ -2,9 +2,10 @@
 <html lang="FR-fr">
 <head>
     <title>The lag | @yield('title')</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta name="description" content="Lorem ipsum">
-    <link rel="stylesheet" href="../../public/css/style.css">
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8"/>
+    <meta name="description" content="Lorem ipsum"/>
+    <link rel="stylesheet" href="../../public/css/style.css"/>
 </head>
 <body>
 
@@ -18,7 +19,7 @@
             </ul>
             @if(Lag\Core\Auth::isLogged())
                 <div class="user-navbar" id="user">
-                    <div role="img" id="circle"></div>
+                    <div role="img" id="circle" style="background: url('{{Lag\Core\Auth::user()->picture}}')"></div>
                     <img id="caret" src="../../public/img/caret.png" alt="Profil"/>
                 </div>
                 <div id="hidden-menu">
@@ -47,20 +48,23 @@
 <script>
     var flag = false;
     const menu = document.getElementById("hidden-menu");
+    const user = document.getElementById("user");
 
-    document.getElementById("user").addEventListener("click",function(){
-        if (!flag){
-            menu.style.visibility='visible';
-            menu.style.transition="0.25s";
-            menu.style.height = "auto";
-            flag = true;
-        } else {
-            menu.style.visibility='hidden';
-            menu.style.height = "0";
-            flag = false;
-        }
+    if (user) {
+        user.addEventListener("click",function(){
+            if (!flag){
+                menu.style.visibility='visible';
+                menu.style.transition="0.25s";
+                menu.style.height = "auto";
+                flag = true;
+            } else {
+                menu.style.visibility='hidden';
+                menu.style.height = "0";
+                flag = false;
+            }
 
-    });
+        });
+    }
 </script>
 @yield('javascript')
 </body>
