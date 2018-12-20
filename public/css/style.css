@@ -188,7 +188,7 @@ h2 {
     left: 50%;
     transform: translate(-50%, 0);
 }
-#user-navbar{
+.user-navbar{
     cursor: pointer;
     position: relative;
     margin-top: 30px;
