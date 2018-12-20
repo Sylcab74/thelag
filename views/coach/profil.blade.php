@@ -8,6 +8,7 @@
         <div class="profil_container">
             <img src="{{$user->picture}}" alt="{{$user->login}}" class="profil_container__picture">
             <div class="profil_container__informations">
+                <a href="/coach/update/{{$user->id}}"><img src="../../public/img/edit.png" alt="Edit profil" class="edit_button"/></a>
                 <h1>{{$user->login}}</h1>
                 <ul>
                     <li>{{ $user->firstname }} {{ $user->lastname }}</li>
