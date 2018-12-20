@@ -32,13 +32,13 @@
                 const formData = new FormData(form);
 
                 try {
-                    const response = await fetch(window.location.origin + '/coach/edit/' + form.dataset.id, {
+                    const response = await fetch(window.location.origin + '/user/edit/' + form.dataset.id, {
                         method: 'POST',
                         mode:"cors",
                         body : formData
                     });
                     if (response.ok) {
-                        window.location.replace(window.location.origin + '/coach/profil');
+                        window.location.replace(window.location.origin + '/user/profil');
                     } else{
                         console.error(response.status);
                     }

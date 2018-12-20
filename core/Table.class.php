@@ -36,7 +36,6 @@ abstract class Table
         if (empty($this->id))
             die('try to hydrate without PK');
 
-
         $query = "SELECT * FROM ".static::$table_name." WHERE id = ".$this->id;
         $result = $this->myFetchAssoc($query);
 
@@ -101,6 +100,8 @@ abstract class Table
             $obj = new $class();
             foreach ($obj->fields_list as $field_name)
                 $obj->{$field_name} = $result[$field_name];
+
+            $obj->id = $result['id'];
             $response[] = $obj;
         }
 

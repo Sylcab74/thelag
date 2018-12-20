@@ -12,7 +12,7 @@ class IndexController
     {
         $games = Game::findAll();
 
-        return Views::render("hello", array("games" => $games));
+        return Views::render("home", array("games" => $games));
     }
 
 }

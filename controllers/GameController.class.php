@@ -4,7 +4,7 @@ namespace Lag\Controller;
 
 use \Lag\Model\Game;
 use \Lag\Model\User;
-use \Lag\Core\Views;
+use \Lag\Core\{Views, Auth};
 
 class GameController
 {
@@ -17,14 +17,17 @@ class GameController
 
     public function showAction($params)
     {
-        $user = new User;
-        $user->id = 2;
-        $user->games();
 
         $game = new Game;
         $game->id = $params['URL'][0];
         $game->hydrate();
-        $getThisGame = in_array($game, $user->games);
+        $getThisGame = false;
+
+        if (Auth::isLogged()) {
+            $user = Auth::user();
+            $user->games();
+            $getThisGame = in_array($game, $user->games);
+        }
         
         return Views::render("games.show", array(
             "game" => $game,

@@ -27,7 +27,7 @@
     <section class="games">
         <h2>Ses jeux</h2>
         <ul>
-            @foreach($user->games as $game)
+            @foreach($games as $game)
                 @component('components.gamecard',['game'=>$game]) @endcomponent
             @endforeach
         </ul>
