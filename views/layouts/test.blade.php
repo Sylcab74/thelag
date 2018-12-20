@@ -1,5 +1,5 @@
-<!DOCTYPE html/>
-<html>
+<!DOCTYPE html>
+<html lang="FR-fr">
 <head>
     <title>The lag | @yield('title')</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -7,20 +7,20 @@
 </head>
 <body>
 
-<header>
-    <div id="main-menu" role="nav">
+
+    <div id="main-menu">
         <a href="/"><img src="../../public/img/logo.png" alt="The Lag"/></a>
         <ul>
-            <a href="/coach"><li>COACHS</li></a>
-            <a href="/game"><li>JEUX</li></a>
-            <a href="#"><li>CONTACT</li></a>
+            <li><a href="/coach">COACHS</a></li>
+            <li><a href="/game">JEUX</a></li>
+            <li><a href="#">CONTACT</a></li>
         </ul>
     </div>
-    <div role="nav" id="user-navbar">
+    <div id="user-navbar">
         <div role="img" id="circle"></div>
-        <img id="caret" src="../../public/img/caret.png"/>
+        <img id="caret" src="../../public/img/caret.png" alt="Profil"/>
     </div>
-    <div role="nav" id="hidden-menu">
+    <div id="hidden-menu">
         <ul>
         <li><a href="#">Mon profil</a></li>
         <li><a href="#">Se déconnecter</a></li>
@@ -29,7 +29,7 @@
 <main>
 
     @yield('content')
-<main>
+</main>
 
 <script>
 var flag = false;
@@ -53,5 +53,5 @@ document.getElementById("user-navbar").addEventListener("click",function(){
 });
 </script>
 @yield('javascript')
-</body
+</body>
 </html>
