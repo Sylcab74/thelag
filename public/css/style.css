@@ -32,6 +32,7 @@ ul {
 }
 h2 {
     font-size: 2em;
+    text-transform: uppercase;
     font-family: 'titillium';
 }
 
@@ -92,7 +93,7 @@ h2 {
     text-align: center;
     color: white;
     font-family: 'roboto';
-    padding-top: 5px;
+    padding: 5px;
 
 }
 .li_game p{
@@ -155,7 +156,7 @@ h2 {
 */
 
 .alert {
-    position: absolute;
+    position: fixed;
     display: none;
     align-items: center;
     justify-content: center;
@@ -168,7 +169,27 @@ h2 {
 .alert_container {
     background: #fff;
     padding: 20px 40px;
-    border-radius: 20px;
+    width: 40%;
+}
+.alert_container select {
+    float: right;
+}
+
+.alert_container input[type="submit"], .alert_container button {
+    text-transform: uppercase;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 0;
+}
+.alert_container input[type="submit"] {
+    background: var(--hard-green);
+}
+.alert_container button {
+    background: var(--green);
+}
+.alert_container textarea {
+    width: 100%;
 }
 
 /**

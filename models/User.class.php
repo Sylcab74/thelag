@@ -48,4 +48,11 @@ class User extends Table
             $this->games[] = $game;
         }
     }
+
+    public function search($value)
+    {
+        $query = "SELECT * FROM user WHERE login lIKE '%" . $value . "%' OR firstname lIKE '%" . $value . "%' OR lastname lIKE '%" . $value . "%'";
+
+        return $this->myFetchAllAssoc($query);
+    }
 }

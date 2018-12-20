@@ -50,6 +50,7 @@
                 <textarea name="comments" id="comments" cols="30" rows="10"></textarea><br>
                 <input type="hidden" value="" name="availability">
                 <input type="submit" value="Valider">
+                <button id="cancel">Annuler</button>
             </form>
         </div>
     </div>
@@ -68,6 +69,7 @@
             const containerTable = document.querySelector('#table');
             const duration = document.querySelector('#duration');
             const previous = document.querySelector('#previous');
+            const cancel = document.querySelector('#cancel');
             const start = document.querySelector('#start');
             const alert = document.querySelector('#alert');
             const game = document.querySelector('#game');
@@ -173,6 +175,7 @@
             const getAvailabality = async elem => {
                 const id = elem.dataset.id;
                 alert.style.display = 'flex';
+                console.log('cc');
 
                 try {
                     const response = await fetch(window.location.origin + '/availability/getAvailability/' + id);
@@ -193,11 +196,11 @@
                 }
             };
 
-            /*alert.addEventListener('click', e => {
-                e.stopPropagation();
-                alert.style.display = "none"
-            });*/
 
+            cancel.addEventListener('click', e =>{
+                e.preventDefault();
+                alert.style.display = "none";
+            });
             availabilities.forEach(elem => elem.addEventListener('click', () => getAvailabality(elem)));
             formSession.addEventListener('submit', e => addSession(e, formSession));
             previous.addEventListener('click', () => changeWeek(previous));
