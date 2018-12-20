@@ -30,9 +30,14 @@ ul {
     padding: 0;
     list-style: none;
 }
+h1{
+    font-family: 'titillium';
+}
+a{
+    text-decoration: none;
+}
 h2 {
     font-size: 2em;
-    text-transform: uppercase;
     font-family: 'titillium';
 }
 
@@ -86,6 +91,8 @@ h2 {
     border-radius: 10px;
     overflow:hidden;
     margin:20px;
+    -moz-box-shadow: 0px 15px 20px 5px #656565;
+    box-shadow: 0px 5px 30px 10px #888888;
 }
 
 .li_game h2{
@@ -124,9 +131,6 @@ h2 {
     position: absolute;
     left: 8%;
     top:20px;
-}
-#main-menu ul{
-    margin:0 !important;
 }
 #main-menu a, a:active{
     color: white;
