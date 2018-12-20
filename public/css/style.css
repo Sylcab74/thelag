@@ -124,6 +124,11 @@ h2 {
     font-size: 20px;
     text-align: center;
 }
+.nav_list{
+    display: flex;
+    align-items: center;
+    height: 90px;
+}
 #main-menu ul li{
     display: inline-block;
     list-style-type: none;
@@ -193,7 +198,6 @@ h2 {
     position: absolute;
     visibility: hidden;
     background: #6395a3;
-    height: 0;
     width: 300px;
     right: 0;
     top: 90px;
@@ -337,6 +341,7 @@ th, td {
     text-align: center;
     width: 120px;
     border-left: 1px solid black;
+    color: black;
 }
 th {
     height: 40px;

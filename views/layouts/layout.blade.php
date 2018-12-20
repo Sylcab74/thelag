@@ -10,7 +10,7 @@
     <header>
         <nav id="main-menu">
             <a href="/"><img src="../../public/img/logo.png" alt="The Lag"/></a>
-            <ul>
+            <ul class="nav_list">
                 <li><a href="/coach">COACHS</a></li>
                 <li><a href="/game">JEUX</a></li>
                 <li><a href="#">CONTACT</a></li>
@@ -29,36 +29,37 @@
             <div id="hidden-menu">
                 <ul>
                     <li><a href="/user/profil">Mon profil</a></li>
-                    <li><a href="#">Se déconnecter</a></li>
+                    <li><a href="/user/logout">Se déconnecter</a></li>
                 </ul>
             </div>
         </nav>
     </header>
-<main>
-
-    @yield('content')
-</main>
+    <main>
+        @yield('content')
+    </main>
 
 <script>
-var flag = false;
-var menu = document.getElementById("hidden-menu");
-document.getElementById("user-navbar").addEventListener("click",function(){
-    if (!flag){
-        menu.getElementsByTagName("li")[0].setAttribute("style","display:block");
-        menu.getElementsByTagName("li")[1].setAttribute("style","display:block");
-        document.getElementById("hidden-menu").style.visibility='visible';
-        document.getElementById("hidden-menu").style.height='60px';
-        document.getElementById("hidden-menu").style.transition="0.25s";
-        flag=true;
-    } else {
-        menu.getElementsByTagName("li")[0].setAttribute("style","display:none");
-        menu.getElementsByTagName("li")[1].setAttribute("style","display:none");
-        document.getElementById("hidden-menu").style.visibility='hidden';
-        document.getElementById("hidden-menu").style.height = "0";
-        flag=false;
-}
-        
-});
+    var flag = false;
+    var menu = document.getElementById("hidden-menu");
+
+    document.getElementById("user-navbar").addEventListener("click",function(){
+        console.log('cc');
+        if (!flag){
+            menu.getElementsByTagName("li")[0].setAttribute("style","display:block");
+            menu.getElementsByTagName("li")[1].setAttribute("style","display:block");
+            document.getElementById("hidden-menu").style.visibility='visible';
+            document.getElementById("hidden-menu").style.transition="0.25s";
+            document.getElementById("hidden-menu").style.height = "auto";
+            flag = true;
+        } else {
+            menu.getElementsByTagName("li")[0].setAttribute("style","display:none");
+            menu.getElementsByTagName("li")[1].setAttribute("style","display:none");
+            document.getElementById("hidden-menu").style.visibility='hidden';
+            document.getElementById("hidden-menu").style.height = "0";
+            flag = false;
+        }
+
+    });
 </script>
 @yield('javascript')
 </body>

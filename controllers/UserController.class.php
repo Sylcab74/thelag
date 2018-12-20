@@ -29,12 +29,6 @@ class UserController
         echo json_encode($response);
     }
 
-
-    public function loginAction()
-    {
-        return Views::render("user.login", []);
-    }
-
     public function updateAction($params)
     {
         $user = new User;
@@ -107,11 +101,49 @@ class UserController
                 $user->price = $post['price'];
                 $user->save();
 
-                return Views::render('hello', ["games" => Game::findAll()]);
+                return Views::render('home', ["games" => Game::findAll()]);
             }
         }
 
         return Views::render('user.register', []);
 
+    }
+
+    public function loginAction($params)
+    {
+        $post = $params['POST'];
+        $errors = null;
+
+        if(isset($post['login']))
+        {
+            $user = User::findBy("login", $post['login']);
+
+            if(count($user) === 0)  {
+                $errors[] = "Désolé, ce login n'existe pas";
+
+                return Views::render('user.login', ['errors' => $errors]);
+            }
+
+            if(password_verify($post['password'], $user[0]->password))
+                $user[0]->generateToken();
+            else{
+                $errors[] = "Désolé, votre mot passe n'est pas bon";
+                return Views::render('user.login', ['errors' => $errors]);
+            }
+            return Views::render('home', []);
+        }
+
+        return Views::render('user.login', []);
+    }
+
+    public function logoutAction()
+    {
+        $user = Auth::user();
+        $user->token = "";
+        $user->save();
+
+        session_destroy();
+
+        return Views::render('home', []);
     }
 }

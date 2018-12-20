@@ -14,16 +14,27 @@ class Auth
 {
     public static function isLogged()
     {
-
-        return true;
+        if(!isset($_SESSION['token']))
+        {
+            return false;
+        }else
+        {
+            return true;
+        }
     }
 
     public static function user()
     {
-        $user = new User();
-        $user->id = "2";
-        $user->hydrate();
+        if(self::isLogged())
+        {
+            $token = $_SESSION['token'];
+            $user = User::findBy('token', $token);
+            if(count($user > 0))
+            {
+                return $user[0];
+            }
+        }
 
-        return $user;
+        return false;
     }
 }
