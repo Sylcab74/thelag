@@ -15,7 +15,7 @@ class SessionController
 
         $session = new Session;
         $session->availabilities_id = $post['availability'];
-        $session->participant_id = 3;
+        $session->participant_id = Auth::user()->id;
         $session->coach_id = $post['user'];
         $session->games_id = $post['game'];
         $session->comments = $post['comments'];

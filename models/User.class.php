@@ -37,7 +37,6 @@ class User extends Table
     public function games()
     {
         $this->games = [];
-
         $query = "SELECT games_id FROM link_games_users WHERE users_id = ". $this->id;
         $results = $this->myFetchAllAssoc($query);
 
@@ -46,6 +45,21 @@ class User extends Table
             $game->id = $result['games_id'];
             $game->hydrate();
             $this->games[] = $game;
+        }
+    }
+
+    public function availabilities()
+    {
+        $this->games = [];
+
+        $query = "SELECT id FROM availabilities WHERE users_id = ". $this->id;
+        $results = $this->myFetchAllAssoc($query);
+
+        foreach ($results as $result) {
+            $availability = new Availability;
+            $availability->id = $result['id'];
+            $availability->hydrate();
+            $this->availability[] = $availability;
         }
     }
 
