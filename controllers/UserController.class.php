@@ -2,6 +2,7 @@
 
 namespace Lag\Controller;
 
+use Lag\Core\Auth;
 use \Lag\Core\Views;
 use \Lag\Model\{User, Game};
 
@@ -61,5 +62,43 @@ class UserController
 
         return Views::render('user.register', []);
 
+    }
+
+    public function loginAction($params)
+    {
+        $post = $params['POST'];
+        $errors = null;
+
+        if(isset($post['login']))
+        {
+            $user = User::findBy("login", $post['login']);
+
+            if(count($user) === 0)
+            {
+                $errors[] = "Désolé, ce login n'existe pas";
+
+                return Views::render('user.login', ['errors' => $errors]);
+            }
+
+            if(password_verify($post['password'], $user[0]->password))
+                $token = $user[0]->generateToken();
+            else{
+                $errors[] = "Désolé, votre mot passe n'est pas bon";
+                return Views::render('user.login', ['errors' => $errors]);
+            }
+        }
+
+        return Views::render('user.login', []);
+    }
+
+    public function logoutAction()
+    {
+        $user = Auth::user();
+        $user->token = "";
+        $user->save();
+
+        session_destroy();
+
+        return Views::render('home', []);
     }
 }

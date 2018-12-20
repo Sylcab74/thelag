@@ -7,7 +7,7 @@ use \Lag\Core\Table;
 class User extends Table
 {
     protected static $table_name = 'users';
-    protected $fields_list = ['login', 'password', 'biography', 'email', 'firstname', 'lastname', 'picture', 'price'];
+    protected $fields_list = ['login', 'password', 'biography', 'email', 'firstname', 'lastname', 'picture', 'price', 'token'];
 
     public $id;
     public $login;
@@ -19,6 +19,7 @@ class User extends Table
     public $picture;
     public $availability = [];
     public $games;
+    public $token;
 
     public function addGame($gameId)
     {
@@ -64,5 +65,16 @@ class User extends Table
         $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
 
+    public function generateToken()
+    {
+        $token = md5("mdlolptdr".time()."tropcool");
+
+        $this->token = $token;
+        $this->save();
+
+        $_SESSION['token'] = $token;
+
+        return $token;
+    }
 
 }

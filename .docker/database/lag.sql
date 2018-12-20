@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `lag`.`users` (
   `firstname` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
   `picture` VARCHAR(125) NULL,
+  `token` VARCHAR (125) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
