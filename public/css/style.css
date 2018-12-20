@@ -150,7 +150,7 @@ h2 {
     height:80px;
     padding:20px;
 }
-.searchbar #search_games{
+.searchbar #search_games, .searchbar #search_coachs{
     border-radius:50px;
     width:75%;
     height:40px;

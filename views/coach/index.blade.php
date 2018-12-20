@@ -5,7 +5,7 @@
 
 @section('content')
     <div role="search" class="searchbar">
-        <input type="text" id="search_games" placeholder="RECHERCHER UN COACH">
+        <input type="text" id="search_coachs" placeholder="RECHERCHER UN COACH">
     </div>
     <div class="box">
         <ul>
