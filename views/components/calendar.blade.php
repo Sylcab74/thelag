@@ -1,6 +1,6 @@
 <div class="button-availability">
     <button id="previous">&lt</button>
-    <h3>Du {{ explode('-',$start)[0] }} au {{$start + 6}}</h3>
+    <h3>Du {{ explode('-',$start)[0] }} au {{explode('-',$end)[0]}}</h3>
     <button id="next">&gt</button>
 </div>
 <div id="table">

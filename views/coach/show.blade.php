@@ -105,13 +105,12 @@
                     
                     if (response.ok) {
                         const data = await response.json();
-                        const { calendar, start : newFirst, month } = data.response;
+                        const { calendar, start : newFirst, month, end } = data.response;
                         const start = numberDays.map(day => parseInt(day) + parseInt(Object.keys(calendar)[0]));
                         start.pop();
 
-
                         containerTable.innerHTML = "";
-                        dateButton.textContent = `Du ${newFirst.split('-')[0]} au ${parseInt(newFirst.split('-')[0]) + 6}`;
+                        dateButton.textContent = `Du ${newFirst.split('-')[0]} au ${parseInt(end.split('-')[0])}`;
 
                         containerTable.innerHTML = `
                         <table data-first="${newFirst}" data-month="${month}">
@@ -127,8 +126,10 @@
                                             ${numberDays.map((elem, index) => {                                            
                                                 if (index == 0) {
                                                     return `<td>${hour}h00</td>`;
+                                                } else if (calendar[start[index-1]+'-'+month] !== undefined && calendar[start[index-1]+'-'+month][indexHours] === "session") {
+                                                    return `<td class="session"></td>`;
                                                 } else if (calendar[start[index-1]+'-'+month] !== undefined && calendar[start[index-1]+'-'+month][indexHours] !== false) {
-                                                    return `<td style="background-color: green" data-id="${calendar[start[index-1]+'-'+month][indexHours]}" class="availability"></td>`;
+                                                    return `<td data-id="${calendar[start[index-1]+'-'+month][indexHours]}" class="availability"></td>`;
                                                 } else if (index === numberDays.length){
                                                     return;
                                                 } else {
