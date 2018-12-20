@@ -47,11 +47,13 @@
                             list.innerHTML = '';
                             data.response.forEach(user => {
                                 list.innerHTML += `
-                                    <li class="li_game">
-                                        <img class="img_game" src="${user.picture}" alt="${user.login}" /> <br>
-                                        <h2>${user.login}</h2>
-                                        <p>${user.price}€/h</p>
-                                    </li>
+                                   <a href="/coach/show/${user.id}">
+                                        <li class="li_game">
+                                            <img class="img_game" src="${user.picture}" alt="${user.login}" /> <br>
+                                            <h2>${user.login}</h2>
+                                            <p>${user.price}€/h</p>
+                                        </li>
+                                    </a>
                                 `;
                             })
 

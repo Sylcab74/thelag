@@ -42,6 +42,39 @@ class CoachController
         ));
     }
 
+    public function profilAction()
+    {
+        // Get the current user object
+        $user = new User;
+        $user->id = 2;
+        $user->hydrate();
+        $user->games();
+
+
+
+        $objCalendar = new Calendar;
+        $calendar = $objCalendar->createCalendar($user);
+        $days = $objCalendar->days;
+
+        end($calendar);
+        $end = key($calendar);
+        reset($calendar);
+
+        echo '<pre>';
+        var_dump($calendar);
+        echo '</pre>';
+
+        return Views::render("coach.profil", array(
+            "calendar" => $calendar,
+            "user" => $user,
+            "days" => $days,
+            'year' => date('Y'),
+            "month" => date('m'),
+            "start" => key($calendar),
+            "end" => $end
+        ));
+    }
+
     public function changeWeekAction($params)
     {
         $data = [];

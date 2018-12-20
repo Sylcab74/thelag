@@ -21,7 +21,7 @@
                             <td>{{$i}}h00</td>
                         @elseif ($calendar[$u.'-'.$month][$i] === "session")
                             <td class="session"></td>
-                        @elseif ($calendar[$u.'-'.$month][$i] !== false)
+                        @elseif ($calendar[$u.'-'.$month][$i] === 'yo')
                             <td data-id={{$calendar[$u.'-'.$month][$i]}} class="availability"></td>
                         @else
                             <td></td>                        
