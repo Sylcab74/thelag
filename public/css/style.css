@@ -180,6 +180,7 @@ h2 {
     cursor: pointer;
 }
 #hidden-menu{
+    z-index: 999;
     visibility: hidden;
     height: 0;
     width:200px;
@@ -194,6 +195,44 @@ li a{
     padding:20px;
     margin-top:10px;
 }
+/* homepage */
+.title{
+    text-align: center;
+    color:#204e4b;
+}
+.container p{
+    text-align: justify;
+    color:#204e4b;
+    font-family: 'roboto';
+    margin-top: 20px;
+}
+.container{
+    width:60%;
+    margin:0 auto;
+}
+.searchbar select{
+    position: absolute;
+    right:10vh;
+    top:15vh;
+    height:40px;
+    border-radius: 10px;
+}
+#home-main{
+    width: 60%;
+    margin:0 auto;
+}
+.home-pic{
+    display: inline-table;
+    width: 33%;
+    height: 150px;
+    background: #222;
+}
+footer{
+    margin-top: 20px;
+    text-align: center;
+    background: #222;
+    color:white;
+}
 @font-face {
     font-family: 'roboto';
     src: url('../fonts/Roboto-Regular.ttf');
@@ -204,7 +243,6 @@ li a{
     src: url('../fonts/Titillium.ttf');
     font-weight: 900;
 }
-
 /**
     Pop up alert
 */

@@ -1,7 +1,7 @@
 <div class="button-availability">
-    <button id="previous">&lt</button>
+    <button id="previous">&lt;</button>
     <h3>Du {{ explode('-',$start)[0] }} au {{explode('-',$end)[0]}}</h3>
-    <button id="next">&gt</button>
+    <button id="next">&gt;</button>
 </div>
 <div id="table">
     <table data-month={{$month}} data-first={{$start}} data-year={{$year}}>

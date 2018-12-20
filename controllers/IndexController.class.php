@@ -10,9 +10,7 @@ class IndexController
 
     public function indexAction()
     {
-        $games = Game::findAll();
-
-        return Views::render("home", array("games" => $games));
+        return Views::render('home');
     }
 
 }
