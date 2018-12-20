@@ -60,10 +60,6 @@ class CoachController
         $end = key($calendar);
         reset($calendar);
 
-        echo '<pre>';
-        var_dump($calendar);
-        echo '</pre>';
-
         return Views::render("coach.profil", array(
             "calendar" => $calendar,
             "user" => $user,
