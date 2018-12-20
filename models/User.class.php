@@ -55,4 +55,14 @@ class User extends Table
 
         return $this->myFetchAllAssoc($query);
     }
+
+    /**
+    * @param mixed $password
+    */
+    public function setPassword($password)
+    {
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
+    }
+
+
 }

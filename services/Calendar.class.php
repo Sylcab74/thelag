@@ -49,7 +49,7 @@ class Calendar
                 $end = date('G', strtotime($available->end));
  
                 for ($i = $hour; $i < $end; $i++)
-                    $calendar[$userDay.'-'.$monthDate][$i] = $available->id;
+                    $calendar[$userDay.'-'.$monthDate][$i] = 'yo';
             }
         }
 

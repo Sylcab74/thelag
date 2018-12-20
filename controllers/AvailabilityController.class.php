@@ -51,4 +51,21 @@ class AvailabilityController
 
         echo json_encode($response);
     }
+
+    public function createAction($params)
+    {
+        $response = [];
+        $post = $params['POST'];
+
+        $availability = new Availability;
+        $availability->start = $post['start_date'] . ' ' . $post['start_hour'] . ':00';
+        $availability->end = $post['end_date'] . ' ' . $post['end_hour'] . ':00';
+        $availability->users_id = $post['user'];
+        $availability->save();
+
+        $response['status'] = 'success';
+        $response['response'] = 'Tout est nickel';
+
+        echo json_encode($response);
+    }
 }

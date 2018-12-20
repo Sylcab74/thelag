@@ -42,6 +42,67 @@ class CoachController
         ));
     }
 
+    public function editAction($params)
+    {
+        $post = $params['POST'];
+
+        $response = [];
+
+        $user = new User;
+        $user->id = $params['URL'][0];
+        $user->login = $post['identifiant'];
+        $user->firstname = $post['firstname'];
+        $user->lastname = $post['lastname'];
+        $user->email = $post['email'];
+        $user->biography = $post['biography'];
+        $user->price = $post['price'];
+        $user->save();
+
+        $response['status'] = 'success';
+
+        echo json_encode($response);
+    }
+
+    public function updateAction($params)
+    {
+
+        $user = new User;
+        $user->id = $params['URL'][0];
+        $user->hydrate();
+        $user->games();
+
+        return Views::render("coach.update", array(
+            "user" => $user
+        ));
+    }
+
+    public function profilAction()
+    {
+        // Get the current user object
+        $user = new User;
+        $user->id = 2;
+        $user->hydrate();
+        $user->games();
+
+        $objCalendar = new Calendar;
+        $calendar = $objCalendar->createCalendar($user);
+        $days = $objCalendar->days;
+
+        end($calendar);
+        $end = key($calendar);
+        reset($calendar);
+
+        return Views::render("coach.profil", array(
+            "calendar" => $calendar,
+            "user" => $user,
+            "days" => $days,
+            'year' => date('Y'),
+            "month" => date('m'),
+            "start" => key($calendar),
+            "end" => $end
+        ));
+    }
+
     public function changeWeekAction($params)
     {
         $data = [];
