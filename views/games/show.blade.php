@@ -1,4 +1,4 @@
-@extends('layouts.test')
+@extends('layouts.layout')
 
 @section('title', $game->name)
 

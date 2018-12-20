@@ -29,6 +29,12 @@ class UserController
         echo json_encode($response);
     }
 
+
+    public function loginAction()
+    {
+        return Views::render("user.login", []);
+    }
+
     public function updateAction($params)
     {
         $user = new User;
@@ -41,7 +47,6 @@ class UserController
 
     public function profilAction()
     {
-        // Get the current user object
         $user = Auth::user();
         $user->games();
         $games = $user->games;

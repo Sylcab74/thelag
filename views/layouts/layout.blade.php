@@ -7,25 +7,33 @@
 </head>
 <body>
 
-
-    <div id="main-menu">
-        <a href="/"><img src="../../public/img/logo.png" alt="The Lag"/></a>
-        <ul>
-            <li><a href="/coach">COACHS</a></li>
-            <li><a href="/game">JEUX</a></li>
-            <li><a href="#">CONTACT</a></li>
-        </ul>
-    </div>
-    <div id="user-navbar">
-        <div role="img" id="circle"></div>
-        <img id="caret" src="../../public/img/caret.png" alt="Profil"/>
-    </div>
-    <div id="hidden-menu">
-        <ul>
-        <li><a href="#">Mon profil</a></li>
-        <li><a href="#">Se déconnecter</a></li>
-        </ul>
-    </div>
+    <header>
+        <nav id="main-menu">
+            <a href="/"><img src="../../public/img/logo.png" alt="The Lag"/></a>
+            <ul>
+                <li><a href="/coach">COACHS</a></li>
+                <li><a href="/game">JEUX</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+            <div id="user-navbar">
+                <?php if (Lag\Core\Auth::isLogged()): ?>
+                    <div role="img" id="circle"></div>
+                    <img id="caret" src="../../public/img/caret.png" alt="Profil"/>
+                <?php  else: ?>
+                    <div class="login_register">
+                        <p><a href="/user/login">Connexion</a></p>
+                        <p><a href="/user/register">Inscription</a></p>
+                    </div>
+                <?php  endif; ?>
+            </div>
+            <div id="hidden-menu">
+                <ul>
+                    <li><a href="/user/profil">Mon profil</a></li>
+                    <li><a href="#">Se déconnecter</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 <main>
 
     @yield('content')
