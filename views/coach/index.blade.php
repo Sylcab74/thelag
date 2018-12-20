@@ -4,8 +4,9 @@
 
 
 @section('content')
-    <h2>Les coachs</h2>
-    <input type="text" id="search_coachs">
+    <div role="search" class="searchbar">
+        <input type="text" id="search_games" placeholder="RECHERCHER UN COACH">
+    </div>
     <div class="box">
         <ul>
             @forelse ($users as $user)
