@@ -4,7 +4,6 @@
 
 
 @section('content')
-
     <div class="box">
         <ul>
             @forelse ($users as $user)

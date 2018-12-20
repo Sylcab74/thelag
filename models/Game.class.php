@@ -14,4 +14,11 @@ class Game extends Table
     public $type;
     public $picture;
     public $description;
+
+    public function search($value)
+    {
+        $query = "SELECT * FROM games WHERE name lIKE '%" . $value . "%'";
+
+        return $this->myFetchAllAssoc($query);
+    }
 }

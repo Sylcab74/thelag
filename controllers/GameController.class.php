@@ -31,4 +31,26 @@ class GameController
             "getThisGame" => $getThisGame
         ));
     }
+
+    public function searchAction($params)
+    {
+
+        $response = [];
+        $result = [];
+        $post = $params['POST'];
+
+        $games = (new Game)->search($post['search']);
+
+        foreach($games as $game) {
+            $objgame = new Game;
+            $objgame->id = $game['id'];
+            $objgame->hydrate();
+            $result[] = $objgame;
+        }
+
+        $response['status'] = 'success';
+        $response['response'] = $result;
+
+        echo json_encode($response);
+    }
 }
