@@ -3,6 +3,7 @@
 <head>
     <title>The lag | @yield('title')</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="description" content="Lorem ipsum">
     <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 <body>
@@ -39,6 +40,9 @@
     <main>
         @yield('content')
     </main>
+    <footer>
+        <p>© The LAG - Tous droits réservés</p>
+    </footer>
 
 <script>
     var flag = false;

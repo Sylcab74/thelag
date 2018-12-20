@@ -4,7 +4,7 @@
 
 @section('content')
     <div role="search" class="searchbar">
-        <input type="text" id="search_games" placeholder="RECHERCHER UN JEU">
+        <input type="text" id="search_games" class="search_games" placeholder="RECHERCHER UN JEU">
     </div>
     <div class="box">
         <ul>

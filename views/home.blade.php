@@ -1,15 +1,16 @@
 @extends('layouts.layout')
 
-@section('title', 'Jeux')
-
+@section('title', 'Accueil')
 
 @section('content')
     <div role="search" class="searchbar">
-        <input type="text" id="search_coachs" placeholder="RECHERCHER UN JEU OU UN COACH">
-        <select>
-            <option>JEU</option>
-            <option>COACH</option>
-        </select>
+        <form id="searchGamesCoach">
+            <input type="text" class="search_games" id="search" placeholder="RECHERCHER UN JEU OU UN COACH">
+            <select id="filter">
+                <option value="jeu">JEU</option>
+                <option value="coach">COACH</option>
+            </select>
+        </form>
     </div>
     <h1 class="title">BIENVENUE SUR THE LAG !</h1>
     <div class="container">
@@ -22,11 +23,81 @@
             <img class="home-pic" src="../../public/img/img3.jpg" alt="The Lag"/>
         
     </div>
-    <footer>
+    <div class="partnership">
         <h1>ILS NOUS ONT REJOINT</h1>
         <img class="footer-pic" src="../../public/img/logo1.png"/>
         <img class="footer-pic" src="../../public/img/logo2.png"/>
         <img class="footer-pic" src="../../public/img/logo3.png"/>
         <img class="footer-pic" src="../../public/img/logo4.png"/>
-    </footer>
+    </div>
+    <div>
+        <ul id="searchResult">
+
+        </ul>
+    </div>
+@endsection
+
+@section('javascript')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filter = document.querySelector('#filter');
+            const inputSearch = document.querySelector('#search');
+            const searchGamesCoach = document.querySelector('#searchGamesCoach');
+            const searchResult = document.querySelector('#searchResult');
+
+            const search = async (e, form) => {
+                e.preventDefault();
+
+                if (e.keyCode === 13) {
+                    const formData = new FormData(form);
+                    formData.append('action', filter.value);
+                    formData.append('search', inputSearch.value);
+
+                    try {
+                        const response = await fetch(window.location.origin + '/index/search', {
+                            method: 'POST',
+                            mode:"cors",
+                            body : formData
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (filter.value === "jeu") {
+                                data.response.forEach(game => {
+                                    searchResult.innerHTML += `
+                                    <a href="game/show/${game.id}">
+                                        <li class="li_game">
+                                            <img class="img_game" src="${ game.picture }" alt="${ game.name }" /> <br>
+                                            <h2>${game.name}</h2>
+                                            <p>${game.type}</p>
+                                        </li>
+                                    </a>
+                                `;
+                                })
+                            } else {
+                                data.response.forEach(user => {
+                                    searchResult.innerHTML += `
+                                        <a href="/coach/show/${user.id}">
+                                        <li class="li_game">
+                                            <img class="img_game" src="${user.picture}" alt="${user.login}" /> <br>
+                                            <h2>${user.login}</h2>
+                                            <p>${user.price}€/h</p>
+                                        </li>
+                                    </a>
+                                    `
+                                });
+                            }
+                        } else {
+                            console.error(response.status);
+                        }
+                    } catch(e) {
+                        console.error(e);
+                    }
+                }
+            };
+
+            searchGamesCoach.addEventListener('submit', e =>e.preventDefault());
+            inputSearch.addEventListener('keyup', e => search(e, searchGamesCoach));
+        })
+    </script>
 @endsection

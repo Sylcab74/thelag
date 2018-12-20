@@ -161,7 +161,7 @@ h2 {
     height:80px;
     padding:20px;
 }
-.searchbar #search_games, .searchbar #search_coachs{
+.searchbar .search_games, .searchbar #search_coachs{
     border-radius:50px;
     width:75%;
     height:40px;
@@ -245,7 +245,7 @@ li a{
     background: #222;
     overflow: hidden;
 }
-footer{
+.partnership{
     margin-top: 20px;
     text-align: center;
     background: #222;
@@ -265,9 +265,17 @@ footer{
     src: url('../fonts/Titillium.ttf');
     font-weight: 900;
 }
-/**
-    Pop up alert
-*/
+footer {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+}
+footer p{
+    line-height: 40px;
+}
+    /**
+        Pop up alert
+    */
 
 .alert {
     position: fixed;
