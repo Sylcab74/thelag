@@ -45,6 +45,7 @@ class UserController
         $user->games();
         $games = $user->games;
 
+
         $objCalendar = new Calendar;
         $calendar = $objCalendar->createCalendar($user);
         $days = $objCalendar->days;
@@ -142,8 +143,9 @@ class UserController
         $user->token = "";
         $user->save();
 
+        unset($_SESSION);
         session_destroy();
 
-        return Views::render('home', []);
+        header('Location: /');
     }
 }

@@ -18,10 +18,12 @@ abstract class Table
 
         $query = "SELECT * FROM ".static::$table_name." WHERE " . $column . " = '".$value . "'";
         $results = self::myFetchAllAssoc($query);
+
         $class = get_called_class();
 
         foreach ($results as $result) {
             $obj = new $class;
+            $obj->id = $result['id'];
             foreach ($obj->fields_list as $field_name){
                 $obj->{$field_name} = $result[$field_name];
             }

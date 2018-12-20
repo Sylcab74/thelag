@@ -47,7 +47,7 @@ class CoachController
     public function changeWeekAction($params)
     {
         $data = [];
-        
+
         $post = $params['POST'];
         $year = date('Y');
         $objCalendar = new Calendar();
@@ -62,23 +62,22 @@ class CoachController
         end($calendar);
         $end = key($calendar);
         reset($calendar);
- 
+
         $data['status'] = 'success';
         $data['response']['calendar'] = $calendar;
         $data['response']['start'] = key($calendar);
         $data['response']['end'] = $end;
         $data['response']['month'] = key($dayMonth);
-        
+
         echo json_encode($data);
     }
-    
+
     public function handleGameAction($params)
     {
         $data = [];
 
         $post = $params['POST'];
-        $user = new User;
-        $user->id = 2;
+        $user = Auth::user();
 
         if ($post['action'] === "add") {
             $user->addGame($post['game']);
@@ -87,9 +86,9 @@ class CoachController
             $user->removeGame($post['game']);
             $data['response'] = 'Le jeu a bien été supprimé de votre bibliothéque !';
         }
-        
+
         $data['status'] = 'success';
-       
+
         echo json_encode($data);
     }
 
