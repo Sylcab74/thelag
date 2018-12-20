@@ -90,4 +90,26 @@ class CoachController
        
         echo json_encode($data);
     }
+
+    public function searchAction($params)
+    {
+
+        $response = [];
+        $result = [];
+        $post = $params['POST'];
+
+        $users = (new User)->search($post['search']);
+
+        foreach($users as $user) {
+            $objuser = new User;
+            $objuser->id = $user['id'];
+            $objuser->hydrate();
+            $result[] = $objuser;
+        }
+
+        $response['status'] = 'success';
+        $response['response'] = $result;
+
+        echo json_encode($response);
+    }
 }

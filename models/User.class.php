@@ -51,7 +51,7 @@ class User extends Table
 
     public function search($value)
     {
-        $query = "SELECT * FROM user WHERE login lIKE '%" . $value . "%' OR firstname lIKE '%" . $value . "%' OR lastname lIKE '%" . $value . "%'";
+        $query = "SELECT * FROM users WHERE login lIKE '%" . $value . "%' OR firstname lIKE '%" . $value . "%' OR lastname lIKE '%" . $value . "%'";
 
         return $this->myFetchAllAssoc($query);
     }

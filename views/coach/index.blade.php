@@ -11,11 +11,9 @@
             @forelse ($users as $user)
             <a href="/coach/show/{{ $user->id }}">
                 <li class="li_game">
-                    
-                        <img class="img_game" src="{{ $user->picture }}" alt="{{ $user->login}}" /> <br> 
-                        <h2>{{$user->login }}</h2>
-                        <p>{{$user->price }}€/h</p>
-                    
+                    <img class="img_game" src="{{ $user->picture }}" alt="{{ $user->login}}" /> <br>
+                    <h2>{{$user->login }}</h2>
+                    <p>{{$user->price }}€/h</p>
                 </li>
             </a>
             @empty
@@ -48,15 +46,13 @@
                             const data = await response.json();
                             list.innerHTML = '';
                             data.response.forEach(user => {
-                                /*list.innerHTML += `
-                                    <a href="game/show/${.id}">
-                                        <li class="li_game">
-                                            <img class="img_game" src="${ game.picture }" alt="${ game.name }" /> <br>
-                                            <h2>${game.name}</h2>
-                                            <p>${game.type}</p>
-                                        </li>
-                                    </a>
-                                `;*/
+                                list.innerHTML += `
+                                    <li class="li_game">
+                                        <img class="img_game" src="${user.picture}" alt="${user.login}" /> <br>
+                                        <h2>${user.login}</h2>
+                                        <p>${user.price}€/h</p>
+                                    </li>
+                                `;
                             })
 
                         } else {
