@@ -161,6 +161,39 @@ h2 {
     padding: 10px;
     outline: none;
 }
+#circle{
+    position: absolute;
+    right: 10vh;
+    top:3.5vh;
+    height: 35px;
+    width:35px;
+    border-radius: 100%;
+    background:#222;
+}
+#caret{
+    height:18px;
+    position: absolute;
+    right: 10vh;
+    top:8.5vh;
+}
+#user-navbar{
+    cursor: pointer;
+}
+#hidden-menu{
+    visibility: hidden;
+    height: 0;
+    width:200px;
+    background:#6395a3;
+    position: absolute;
+    right:0;
+}
+li a{
+    text-transform: uppercase;
+    font-family: 'titillium';
+    color: white;
+    padding:20px;
+    margin-top:10px;
+}
 @font-face {
     font-family: 'roboto';
     src: url('../fonts/Roboto-Regular.ttf');
