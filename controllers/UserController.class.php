@@ -3,7 +3,7 @@
 namespace Lag\Controller;
 
 use \Lag\Core\Views;
-use \Lag\Model\User;
+use \Lag\Model\{User, Game};
 
 class UserController
 {
@@ -24,23 +24,39 @@ class UserController
         $post = $params['POST'];
 
         if (count($post) > 0) {
-            $response = [];
 
-            $user = new User;
-            $user->login = $post['identifiant'];
-            $user->firstname = $post['firstname'];
-            $user->lastname = $post['lastname'];
-            $user->email = $post['email'];
-            $user->biography = $post['biography'];
-            $user->price = $post['price'];
-            $user->save();
+            $errors = [];
 
-            $response['status'] = 'success';
+            if (count( User::findBy('login', $post['login'])) > 0)
+                $errors[] = "Désolé ce nom d'utilisateur est déjà utilisé.";
 
-            echo json_encode($response);
+
+            if(!empty(User::findBy('email', $post['email'])))
+                $errors[] = "Désolé cet email est déjà utilisé";
+
+            if( strlen($post['password']) < 8)
+                $errors[] = "Désolé, votre mot de passe doit contenir plus de 8 caractères";
+
+            if (count($errors)) {
+                return Views::render('user.register', ["errors" => $errors]);
+            } else {
+
+                $user = new User;
+                $user->login = $post['login'];
+                $user->firstname = $post['firstname'];
+                $user->lastname = $post['lastname'];
+                $user->email = $post['email'];
+                $user->picture = "/";
+                $user->password = password_hash($post['password'], PASSWORD_DEFAULT);
+                $user->biography = $post['biography'];
+                $user->price = $post['price'];
+                $user->save();
+
+                return Views::render('hello', ["games" => Game::findAll()]);
+            }
         }
 
+        return Views::render('user.register', []);
 
-        return Views::render("user.register", array());
     }
 }

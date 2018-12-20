@@ -3,15 +3,24 @@
 @section('title', 'Inscription')
 
 @section('content')
-    <form id="addUser">
+    @if ($errors)
+        <ul>
+            @foreach($errors as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    @endif
+    <form id="addUser" action="/user/register" method="POST">
         <label for="identifiant">Identifiant</label>
-        <input type="text" name="identifiant" id="identifiant"><br>
+        <input type="text" name="login" id="login"><br>
         <label for="firstname">Prénom</label>
         <input type="text" name="firstname" id="firstname"><br>
         <label for="lastname">Nom</label>
         <input type="text" name="lastname" id="lastname"><br>
-        <label for="">Email</label>
-        <input type="email" name="mail" id="mail"><br>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"><br>
+        <label for="password">Mot de passe</label>
+        <input type="password" name="password" id="password"><br>
         <label for="biography">Biographie</label>
         <textarea name="biography" id="" cols="30" rows="10"></textarea><br>
         <label for="price">Price</label>

@@ -16,7 +16,7 @@ abstract class Table
     {
         $response = [];
 
-        $query = "SELECT * FROM ".static::$table_name." WHERE " . $column . " = ".$value;
+        $query = "SELECT * FROM ".static::$table_name." WHERE " . $column . " = '".$value . "'";
         $results = self::myFetchAllAssoc($query);
         $class = get_called_class();
 
@@ -69,21 +69,25 @@ abstract class Table
             $query = rtrim($query, ', ');
             $query .= " WHERE id = '".$this->id."'";
 
+
             $this->myQuery($query);
 
         } else {
 
-            $query = "INSERT INTO " . static::$table_name . " (".implode(", ", $this->fields_list).") VALUES (";
+            $query = "INSERT INTO " . static::$table_name . " (" . implode(", ", $this->fields_list) . ") VALUES (";
 
-            foreach ($this->fields_list as $column)
-                $query .= "'".$this->{$column}."' ,";
+            foreach ($this->fields_list as $column){
+                if (!is_array($this->{$column}) && $column !== "id") {
+                    $query .= "'" . $this->{$column} . "' ,";
+                }
+            }
 
             $query = rtrim($query, ',');
             $query .= ")";
+            $query = str_replace('id,', '', $query);
 
             $this->myQuery($query);
             $this->id = mysqli_insert_id($link);
-
         }
     }
 

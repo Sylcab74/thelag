@@ -7,7 +7,7 @@ use \Lag\Core\Table;
 class User extends Table
 {
     protected static $table_name = 'users';
-    protected $fields_list = ['id','login', 'password', 'biography', 'email', 'firstname', 'lastname', 'picture', 'price', 'availability'];
+    protected $fields_list = ['login', 'password', 'biography', 'email', 'firstname', 'lastname', 'picture', 'price'];
 
     public $id;
     public $login;
@@ -55,4 +55,14 @@ class User extends Table
 
         return $this->myFetchAllAssoc($query);
     }
+
+    /**
+    * @param mixed $password
+    */
+    public function setPassword($password)
+    {
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
+    }
+
+
 }
