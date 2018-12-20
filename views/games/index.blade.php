@@ -3,8 +3,9 @@
 @section('title', 'Jeux')
 
 @section('content')
-    <h1>JEUX</h1>
-    <input type="text" id="search_games">
+    <div role="search" class="searchbar">
+        <input type="text" id="search_games" placeholder="RECHERCHER UN JEU">
+    </div>
     <div class="box">
         <ul>
         @forelse ($games as $game)
