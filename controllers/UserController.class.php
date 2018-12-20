@@ -41,7 +41,6 @@ class UserController
 
     public function profilAction()
     {
-        // Get the current user object
         $user = Auth::user();
         $user->games();
         $games = $user->games;
@@ -102,7 +101,7 @@ class UserController
                 $user->price = $post['price'];
                 $user->save();
 
-                return Views::render('hello', ["games" => Game::findAll()]);
+                return Views::render('home', ["games" => Game::findAll()]);
             }
         }
 
@@ -119,19 +118,19 @@ class UserController
         {
             $user = User::findBy("login", $post['login']);
 
-            if(count($user) === 0)
-            {
+            if(count($user) === 0)  {
                 $errors[] = "Désolé, ce login n'existe pas";
 
                 return Views::render('user.login', ['errors' => $errors]);
             }
 
             if(password_verify($post['password'], $user[0]->password))
-                $token = $user[0]->generateToken();
+                $user[0]->generateToken();
             else{
                 $errors[] = "Désolé, votre mot passe n'est pas bon";
                 return Views::render('user.login', ['errors' => $errors]);
             }
+            return Views::render('home', []);
         }
 
         return Views::render('user.login', []);

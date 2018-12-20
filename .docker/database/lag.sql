@@ -23,7 +23,7 @@ USE `lag` ;
 CREATE TABLE IF NOT EXISTS `lag`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `biography` VARCHAR(255) NOT NULL,
   `price` float NOT NULL,

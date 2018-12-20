@@ -1,6 +1,6 @@
-@extends('layouts.test')
+@extends('layouts.layout')
 
-@section('title', 'Inscription')
+@section('title', 'Connexion')
 
 @section('content')
     @if ($errors)
@@ -10,6 +10,7 @@
             @endforeach
         </ul>
     @endif
+
     <form id="addUser" action="/user/login" method="POST">
         <label for="identifiant">Identifiant</label>
         <input type="text" name="login" id="login"><br>
@@ -18,3 +19,4 @@
         <input type="submit" value="Login">
     </form>
 @endsection
+
