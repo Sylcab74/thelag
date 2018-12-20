@@ -194,20 +194,13 @@ h2 {
     margin-top: 30px;
     margin-right: 20px;
 }
-<<<<<<< HEAD
 #hidden-menu{
     z-index: 999;
     visibility: hidden;
     height: 0;
     width:200px;
     background:#6395a3;
-=======
-#hidden-menu {
->>>>>>> 6945b7ba1d3c5fa08a56863b9edb4951f47132a2
     position: absolute;
-    visibility: hidden;
-    background: #6395a3;
-    width: 300px;
     right: 0;
     top: 90px;
 }
@@ -228,7 +221,7 @@ li a{
     text-align: justify;
     color:#204e4b;
     font-family: 'roboto';
-    margin-top: 20px;
+    margin:20px 0;
 }
 .container{
     width:60%;
@@ -250,12 +243,17 @@ li a{
     width: 33%;
     height: 150px;
     background: #222;
+    overflow: hidden;
 }
 footer{
     margin-top: 20px;
     text-align: center;
     background: #222;
     color:white;
+}
+.footer-pic{
+    height: 120px;
+    margin:50px;
 }
 @font-face {
     font-family: 'roboto';

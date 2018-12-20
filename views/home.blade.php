@@ -17,18 +17,16 @@
         Dum apud Persas, ut supra narravimus, perfidia regis motus agitat insperatos, et in eois tractibus bella rediviva consurgunt, anno sexto decimo et eo diutius post Nepotiani exitium, saeviens per urbem aeternam urebat cuncta Bellona, ex primordiis minimis ad clades excita luctuosas, quas obliterasset utinam iuge silentium! ne forte paria quandoque temptentur, plus exemplis generalibus nocitura quam delictis. Nepotiani exitium, saeviens per urbem aeternam urebat cuncta Bellona, ex primordiis minimis ad clades excita luctuosas, quas obliterasset utinam iuge silentium! ne forte paria quandoque temptentur, plus exemplis generalibus nocitura quam delictis.</p>
     </div>
     <div id="home-main">
-        <div class="home-pic">
-        </div>
-        <div class="home-pic">
-        </div>
-        <div class="home-pic">
-        </div>
+            <img class="home-pic" src="../../public/img/img1.jpg" alt="The Lag"/>
+            <img class="home-pic" src="../../public/img/img2.jpg" alt="The Lag"/>
+            <img class="home-pic" src="../../public/img/img3.jpg" alt="The Lag"/>
+        
     </div>
     <footer>
         <h1>ILS NOUS ONT REJOINT</h1>
-        <img class="footer-pic"/>
-        <img class="footer-pic"/>
-        <img class="footer-pic"/>
-        <img class="footer-pic"/>
+        <img class="footer-pic" src="../../public/img/logo1.png"/>
+        <img class="footer-pic" src="../../public/img/logo2.png"/>
+        <img class="footer-pic" src="../../public/img/logo3.png"/>
+        <img class="footer-pic" src="../../public/img/logo4.png"/>
     </footer>
 @endsection
