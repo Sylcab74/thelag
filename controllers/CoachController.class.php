@@ -27,7 +27,9 @@ class CoachController
         $calendar = $objCalendar->createCalendar($user);
         $days = $objCalendar->days;
 
-        $start = key($calendar);
+        end($calendar);
+        $end = key($calendar);
+        reset($calendar);
 
         return Views::render("coach.show", array(
             "calendar" => $calendar,
@@ -35,7 +37,8 @@ class CoachController
             "days" => $days,
             'year' => date('Y'),
             "month" => date('m'),
-            "start" => key($calendar)
+            "start" => key($calendar),
+            "end" => $end
         ));
     }
 
@@ -53,10 +56,15 @@ class CoachController
 
         $dayMonth = $objCalendar->getDayAndMonth($post['first'], $post['last'], $post['month'], $post['action']);
         $calendar = $objCalendar->createCalendar($user, current($dayMonth), key($dayMonth), $year);
+
+        end($calendar);
+        $end = key($calendar);
+        reset($calendar);
  
         $data['status'] = 'success';
         $data['response']['calendar'] = $calendar;
         $data['response']['start'] = key($calendar);
+        $data['response']['end'] = $end;
         $data['response']['month'] = key($dayMonth);
         
         echo json_encode($data);
